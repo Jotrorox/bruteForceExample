@@ -1,4 +1,3 @@
-# First, the Dockerfile
 FROM php:8.2-apache
 
 # Install PHP extensions and enable Apache modules
