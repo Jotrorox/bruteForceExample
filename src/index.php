@@ -9,19 +9,19 @@ $DEMO_USER = "admin";
 $DEMO_PASS = "password123";
 
 // Track login attempts for demonstration
-$attempts = isset($_SESSION['attempts']) ? $_SESSION['attempts'] : 0;
+$attempts = isset($_SESSION['attempts'])? $_SESSION['attempts'] : 0;
 
 function logAttempt($username, $success)
 {
     // Log attempts to demonstrate the vulnerability
     $timestamp = date('Y-m-d H:i:s');
-    $result = $success ? "SUCCESS" : "FAILED";
+    $result = $success? "SUCCESS" : "FAILED";
     error_log("[$timestamp] Login attempt for user '$username': $result");
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = isset($_POST['username']) ? $_POST['username'] : '';
-    $password = isset($_POST['password']) ? $_POST['password'] : '';
+    $username = isset($_POST['username'])? $_POST['username'] : '';
+    $password = isset($_POST['password'])? $_POST['password'] : '';
 
     // Vulnerable authentication - no rate limiting or delays
     if ($username === $DEMO_USER && $password === $DEMO_PASS) {
@@ -32,6 +32,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['attempts'] = ++$attempts;
         logAttempt($username, false);
     }
+}
+
+// Handle logout
+if (isset($_GET['logout'])) {
+    session_unset();
+    session_destroy();
+    header("Location: index.php");
+    exit;
 }
 
 $isLoggedIn = isset($_SESSION['logged_in']) && $_SESSION['logged_in'];
@@ -120,18 +128,16 @@ $isLoggedIn = isset($_SESSION['logged_in']) && $_SESSION['logged_in'];
         Never use this code in production environments.
     </div>
 
-    <?php if ($isLoggedIn): ?>
+    <?php if ($isLoggedIn):?>
         <div class="success">
             <h2>Successfully Logged In!</h2>
             <p>You've accessed the secure area.</p>
-            <form method="post" action="?logout">
-                <button type="submit">Logout</button>
-            </form>
+            <button><a href="?logout" style="text-decoration: none; color: white;">Logout</a></button>
         </div>
-    <?php else: ?>
+    <?php else:?>
         <h2>Vulnerable Login Form</h2>
         <div class="attempts">
-            Failed attempts: <?php echo $attempts; ?>
+            Failed attempts: <?php echo $attempts;?>
         </div>
         <form method="post">
             <div>
@@ -153,7 +159,7 @@ $isLoggedIn = isset($_SESSION['logged_in']) && $_SESSION['logged_in'];
             <li>Plain text password storage</li>
             <li>Basic session management</li>
         </ul>
-    <?php endif; ?>
+    <?php endif;?>
 
     <div class="navigation">
         <a href="/bruteforce.php">Go to Brute Force Testing Tool</a>
