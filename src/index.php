@@ -9,9 +9,9 @@ $DEMO_USER = "admin";
 $DEMO_PASS = "password123";
 
 // Track login attempts for demonstration
-$attempts = isset($_SESSION['attempts'])? $_SESSION['attempts'] : 0;
+$attempts = $_SESSION['attempts'] ?? 0;
 
-function logAttempt($username, $success)
+function logAttempt($username, $success): void
 {
     // Log attempts to demonstrate the vulnerability
     $timestamp = date('Y-m-d H:i:s');
@@ -20,8 +20,8 @@ function logAttempt($username, $success)
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = isset($_POST['username'])? $_POST['username'] : '';
-    $password = isset($_POST['password'])? $_POST['password'] : '';
+    $username = $_POST['username'] ?? '';
+    $password = $_POST['password'] ?? '';
 
     // Vulnerable authentication - no rate limiting or delays
     if ($username === $DEMO_USER && $password === $DEMO_PASS) {

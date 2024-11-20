@@ -9,12 +9,12 @@ $DEMO_USER = "admin";
 $DEMO_PASS = "password123";
 
 // Initialize or get attempt counter
-$attempts = isset($_SESSION['attempts']) ? $_SESSION['attempts'] : 0;
+$attempts = $_SESSION['attempts'] ?? 0;
 $success = false;
 $lastAttempt = '';
 $timeElapsed = 0;
 
-function attemptLogin($username, $password)
+function attemptLogin($username, $password): bool
 {
     global $DEMO_USER, $DEMO_PASS;
     return ($username === $DEMO_USER && $password === $DEMO_PASS);
