@@ -1,6 +1,9 @@
 <?php
 session_start();
 
+require_once 'Navigation.php';
+$navigation = new Navigation();
+
 // WARNING: This is an educational demonstration tool.
 // DO NOT use these techniques against real systems.
 
@@ -156,20 +159,10 @@ $defaultWordlist = "123456\npassword\nadmin\nqwerty\nletmein\npassword123\nwelco
             margin: 10px 0;
             border-radius: 4px;
         }
-
-        .navigation {
-            margin-top: 20px;
-            text-align: center;
-        }
-
-        .navigation a {
-            color: #007bff;
-            text-decoration: none;
-            padding: 10px;
-        }
     </style>
 </head>
 <body>
+<?php echo $navigation->render(); ?>
 <div class="container">
     <div class="warning">
         <strong>⚠️ Educational Purpose Only</strong><br>
@@ -238,16 +231,12 @@ $defaultWordlist = "123456\npassword\nadmin\nqwerty\nletmein\npassword123\nwelco
                     <li>Rate limiting</li>
                     <li>Account lockouts</li>
                     <li>CAPTCHA or similar challenges</li>
-                    <li>Multi-factor authentication</li>
+                    <li>Multifactor authentication</li>
                     <li>Password hashing</li>
                 </ul>
             </li>
             <li>Monitor the statistics to understand how quickly simple passwords can be compromised</li>
         </ul>
-    </div>
-
-    <div class="navigation">
-        <a href="/index.php">Go to Login Page</a>
     </div>
 </div>
 </body>

@@ -1,6 +1,9 @@
 <?php
 session_start();
 
+require_once 'Navigation.php';
+$navigation = new Navigation();
+
 // WARNING: This is an educational demonstration of security vulnerabilities.
 // DO NOT use this code in production - it intentionally lacks security measures.
 
@@ -107,20 +110,10 @@ $isLoggedIn = isset($_SESSION['logged_in']) && $_SESSION['logged_in'];
             padding: 15px;
             border-radius: 4px;
         }
-
-        .navigation {
-            margin-top: 20px;
-            text-align: center;
-        }
-
-        .navigation a {
-            color: #007bff;
-            text-decoration: none;
-            padding: 10px;
-        }
     </style>
 </head>
 <body>
+<?php echo $navigation->render(); ?>
 <div class="container">
     <div class="warning">
         <strong>⚠️ Educational Purpose Only</strong><br>
@@ -160,10 +153,6 @@ $isLoggedIn = isset($_SESSION['logged_in']) && $_SESSION['logged_in'];
             <li>Basic session management</li>
         </ul>
     <?php endif;?>
-
-    <div class="navigation">
-        <a href="/bruteforce.php">Go to Brute Force Testing Tool</a>
-    </div>
 </div>
 </body>
 </html>
