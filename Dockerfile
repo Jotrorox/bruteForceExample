@@ -1,14 +1,8 @@
-# Use the official PHP image with Apache
-FROM php:8.2-apache
+# Use the official PHP-FPM image
+FROM php:8.2-fpm
 
-# Copy the application code to the container's web root
+# Copy the application code to the container
 COPY src/ /var/www/html/
 
-# Set permissions for Apache
+# Set permissions for NGINX
 RUN chown -R www-data:www-data /var/www/html && chmod -R 755 /var/www/html
-
-# Enable Apache mod_rewrite
-RUN a2enmod rewrite
-
-# Install necessary PHP extensions
-RUN docker-php-ext-install mysqli

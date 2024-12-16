@@ -3,12 +3,19 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: php-login-app
+    container_name: php-fpm
+    volumes:
+      - ./src:/var/www/html
+    restart: always
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
     ports:
       - "8080:80"
     volumes:
       - ./src:/var/www/html
-    environment:
-      - APACHE_RUN_USER=www-data
-      - APACHE_RUN_GROUP=www-data
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - app
     restart: always

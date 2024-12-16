@@ -3,7 +3,7 @@
 header('Content-Type: application/json');
 
 // Path to the users file
-$usersFile = 'rsc/users.txt';
+$usersFile = 'users.txt';
 
 // Initialize an array to store user credentials
 $userData = [];
