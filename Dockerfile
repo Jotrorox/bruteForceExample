@@ -16,18 +16,15 @@ RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html
 
 # Create required directories and set permissions
-RUN mkdir -p /var/log/nginx /var/run/nginx && \
+RUN mkdir -p /var/log/nginx /var/run/nginx /var/log/supervisor && \
     chown -R www-data:www-data /var/log/nginx /var/run/nginx
 
-# Update NGINX configuration to use localhost instead of php-fpm hostname
+# Copy configuration files
 COPY nginx.conf /etc/nginx/conf.d/default.conf
-RUN sed -i 's/php-fpm:9000/localhost:9000/g' /etc/nginx/conf.d/default.conf
-
-# Copy supervisor configuration
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-# Expose port 80
-EXPOSE 80
+# Expose ports
+EXPOSE 80 9000
 
 # Start supervisor
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
