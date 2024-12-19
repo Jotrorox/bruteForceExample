@@ -111,9 +111,15 @@ session_start();
             bottom: 2rem;
             right: 2rem;
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             gap: 1rem;
             z-index: 50;
+        }
+
+        @media (min-width: 640px) {
+            .fab-container {
+                flex-direction: column;
+            }
         }
 
         .fab {
@@ -131,6 +137,19 @@ session_start();
         .fab:hover {
             transform: scale(1.05);
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Improve mobile touch targets */
+        @media (max-width: 640px) {
+            .fab {
+                width: 4rem;
+                height: 4rem;
+            }
+            
+            .fab svg {
+                width: 1.75rem;
+                height: 1.75rem;
+            }
         }
 
         /* Updated Modal styles */
@@ -709,6 +728,15 @@ session_start();
         });
 
         document.addEventListener('click', (e) => {
+            // Don't spawn dots if clicking on or inside a modal or button
+            if (e.target.closest('.modal') || 
+                e.target.closest('button') || 
+                e.target.closest('.fab') ||
+                e.target.closest('input') ||
+                e.target.closest('textarea')) {
+                return;
+            }
+            
             const dot = document.createElement('div');
             dot.className = 'dot';
             
