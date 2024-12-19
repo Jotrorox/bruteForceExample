@@ -1,3 +1,7 @@
+<?php
+require_once '../config/config.php';
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -394,7 +398,7 @@
         fade-in mx-4 my-8 sm:my-4">
         <h2 class="text-3xl font-bold text-center bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 bg-clip-text text-transparent mb-8">Welcome Back</h2>
         <div id="login-form-container">
-            <form id="login-form" method="POST" action="login.php" hx-post="login.php" hx-target="#login-form-container" class="space-y-6">
+            <form id="login-form" method="POST" action="/includes/login.php" hx-post="/includes/login.php" hx-target="#login-form-container" class="space-y-6">
                 <div>
                     <label for="username" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Username</label>
                     <div class="input-wrapper">
@@ -456,7 +460,7 @@
                     active:scale-[0.98]
                     transition-all duration-200 
                     focus:outline-none focus:ring-2 focus:ring-red-500" 
-                    hx-post="logout.php" 
+                    hx-post="/includes/logout.php" 
                     hx-target="body"
                     hx-swap="outerHTML">
                     Sign Out
@@ -738,7 +742,7 @@
             modal.classList.add('show');
             
             try {
-                const response = await fetch('get_passwords.php');
+                const response = await fetch('/includes/get_passwords.php');
                 const data = await response.json();
                 
                 content.innerHTML = `
@@ -871,7 +875,7 @@
             
             // Fetch the actual passwords for comparison
             try {
-                const response = await fetch('get_passwords.php');
+                const response = await fetch('/includes/get_passwords.php');
                 targetCredentials = await response.json();
             } catch (error) {
                 console.error('Error loading passwords:', error);

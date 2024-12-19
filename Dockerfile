@@ -1,38 +1,43 @@
 # Use the official PHP-FPM image
 FROM php:8.2-fpm
 
-# Install NGINX and supervisor with cleanup in the same layer
-RUN apt-get update && \
-    apt-get install -y \
+# Install dependencies
+RUN apt-get update && apt-get install -y \
     nginx \
-    supervisor \
     && rm -rf /var/lib/apt/lists/*
 
-# Enable PHP extensions
-RUN docker-php-ext-install opcache && \
-    docker-php-ext-enable opcache
+# Configure PHP
+RUN docker-php-ext-install opcache pdo_mysql
 
-# Create session directory and set permissions
-RUN mkdir -p /var/lib/php/sessions && \
-    chown -R www-data:www-data /var/lib/php/sessions
+# Create directory structure
+RUN mkdir -p /var/www/brute-force-demo/{public,config,data,includes}
 
-# Copy application code
-COPY src/ /var/www/html/
+# Copy application files
+COPY public/ /var/www/brute-force-demo/public/
+COPY config/ /var/www/brute-force-demo/config/
+COPY includes/ /var/www/brute-force-demo/includes/
+COPY data/ /var/www/brute-force-demo/data/
 
-# Set proper permissions
-RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 755 /var/www/html
+# Copy Nginx configuration
+COPY nginx-site.conf /etc/nginx/conf.d/default.conf
+RUN rm /etc/nginx/sites-enabled/default
 
-# Create required directories and set permissions
-RUN mkdir -p /var/log/nginx /var/run/nginx /var/log/supervisor && \
-    chown -R www-data:www-data /var/log/nginx /var/run/nginx
+# Set permissions
+RUN chown -R www-data:www-data /var/www/brute-force-demo \
+    && chmod -R 755 /var/www/brute-force-demo/public \
+    && chmod -R 750 /var/www/brute-force-demo/includes \
+    && chmod -R 750 /var/www/brute-force-demo/config \
+    && chmod -R 750 /var/www/brute-force-demo/data \
+    && chmod 640 /var/www/brute-force-demo/data/users.txt
 
-# Copy configuration files
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+# Create required directories
+RUN mkdir -p /var/run/nginx /var/log/nginx \
+    && chown -R www-data:www-data /var/run/nginx /var/log/nginx
 
-# Expose ports
-EXPOSE 80 9000
+# Start PHP-FPM and Nginx
+COPY docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
-# Start supervisor
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+EXPOSE 80
+
+ENTRYPOINT ["docker-entrypoint.sh"]
