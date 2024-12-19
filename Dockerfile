@@ -8,6 +8,14 @@ RUN apt-get update && \
     supervisor \
     && rm -rf /var/lib/apt/lists/*
 
+# Enable PHP extensions
+RUN docker-php-ext-install opcache && \
+    docker-php-ext-enable opcache
+
+# Create session directory and set permissions
+RUN mkdir -p /var/lib/php/sessions && \
+    chown -R www-data:www-data /var/lib/php/sessions
+
 # Copy application code
 COPY src/ /var/www/html/
 
