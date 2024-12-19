@@ -13,7 +13,7 @@
     <meta name="msapplication-TileImage" content="/favicon.ico">
     <meta name="msapplication-config" content="/browserconfig.xml">
     <meta name="apple-mobile-web-app-title" content="Brute Force Example Login">
-    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Brute Force Example Login">
     <script src="https://unpkg.com/htmx.org@2.0.4"></script>
@@ -100,6 +100,221 @@
                 height: 3.5rem;
             }
         }
+
+        /* Floating action buttons */
+        .fab-container {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            z-index: 50;
+        }
+
+        .fab {
+            width: 3.5rem;
+            height: 3.5rem;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .fab:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Updated Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            background-color: rgba(0, 0, 0, 0);
+            backdrop-filter: blur(0px);
+            transition: background-color 0.3s ease-out,
+                        backdrop-filter 0.3s ease-out;
+        }
+
+        .modal.show {
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -40%);
+            opacity: 0;
+            min-width: 300px;
+            max-width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+                        opacity 0.3s ease-out;
+        }
+
+        .modal.show .modal-content {
+            transform: translate(-50%, -50%);
+            opacity: 1;
+        }
+
+        /* Enhanced input field effects */
+        .input-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        .input-wrapper::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 0.75rem;
+            padding: 2px;
+            background: linear-gradient(90deg, #6366f1, #a855f7);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, 
+                          linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, 
+                  linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .input-wrapper:focus-within::before {
+            opacity: 1;
+        }
+
+        .form-input {
+            position: relative;
+            background: transparent;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .form-input:focus {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 20px -8px rgba(99, 102, 241, 0.5);
+        }
+
+        /* Credential item hover effect */
+        .credential-item {
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .credential-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px -8px rgba(99, 102, 241, 0.5);
+        }
+
+        .credential-item:active {
+            transform: translateY(0px);
+        }
+
+        /* Enhanced dark mode toggle */
+        .theme-toggle {
+            position: relative;
+            width: 3rem;
+            height: 3rem;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 9999px;
+            backdrop-filter: blur(8px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+        }
+
+        .dark .theme-toggle {
+            background: rgba(31, 41, 55, 0.8);
+        }
+
+        .theme-toggle::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 9999px;
+            padding: 1px;
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, 
+                          linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, 
+                  linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .theme-toggle:hover::before {
+            opacity: 1;
+        }
+
+        .theme-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px -4px rgba(99, 102, 241, 0.3);
+        }
+
+        .theme-toggle:active {
+            transform: translateY(0);
+        }
+
+        .theme-icon {
+            position: relative;
+            width: 1.5rem;
+            height: 1.5rem;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .theme-icon .sun,
+        .theme-icon .moon {
+            position: absolute;
+            inset: 0;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .theme-icon .sun {
+            color: #f59e0b;
+            opacity: 1;
+            transform: rotate(0deg) scale(1);
+        }
+
+        .theme-icon .moon {
+            color: #818cf8;
+            opacity: 0;
+            transform: rotate(90deg) scale(0.5);
+        }
+
+        .dark .theme-icon .sun {
+            opacity: 0;
+            transform: rotate(-90deg) scale(0.5);
+        }
+
+        .dark .theme-icon .moon {
+            opacity: 1;
+            transform: rotate(0deg) scale(1);
+        }
+
+        /* Add ripple effect */
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            transform: scale(0);
+            animation: ripple 0.6s linear;
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        @keyframes ripple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
     </style>
     <script>
         tailwind.config = {
@@ -125,21 +340,16 @@
     </div>
     <div class="absolute top-4 right-4 z-10">
         <button id="darkModeToggle" 
-            class="w-12 h-12 flex items-center justify-center bg-white/80 dark:bg-gray-700/80 
-            backdrop-blur-sm rounded-full shadow-lg hover:shadow-xl 
-            transform hover:-translate-y-0.5 active:translate-y-0
-            transition-all duration-300 focus:outline-none focus:ring-2 
-            focus:ring-indigo-500 dark:focus:ring-indigo-400 
-            group relative">
-            <span id="darkModeIcon" 
-                class="block transform transition-transform duration-500 rotate-0 dark:rotate-[360deg]">
-                <svg class="w-6 h-6 text-amber-500 dark:hidden" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"/>
+            class="theme-toggle flex items-center justify-center focus:outline-none"
+            aria-label="Toggle dark mode">
+            <div class="theme-icon">
+                <svg class="sun" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"/>
                 </svg>
-                <svg class="w-6 h-6 text-indigo-300 hidden dark:block" fill="currentColor" viewBox="0 0 20 20">
+                <svg class="moon" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/>
                 </svg>
-            </span>
+            </div>
         </button>
     </div>
     <div class="w-full max-w-md p-6 sm:p-8 
@@ -152,28 +362,43 @@
             <form id="login-form" method="POST" action="login.php" hx-post="login.php" hx-target="#login-form-container" class="space-y-6">
                 <div>
                     <label for="username" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Username</label>
-                    <input type="text" id="username" name="username" required accept="text" autocomplete="username" placeholder="admin"
-                        class="mt-1 block w-full p-3 sm:p-3.5 border border-gray-300 
-                        dark:border-gray-600 rounded-xl shadow-sm 
-                        focus:outline-none focus:ring-2 focus:ring-indigo-500 
-                        focus:border-indigo-500 
-                        dark:focus:ring-indigo-400 dark:focus:border-indigo-400 
-                        bg-white/70 dark:bg-gray-700/70 
-                        text-gray-900 dark:text-gray-100
-                        placeholder-gray-400 dark:placeholder-gray-500
-                        transition-all duration-200
-                        text-base sm:text-sm">
+                    <div class="input-wrapper">
+                        <input type="text" 
+                            id="username" 
+                            name="username" 
+                            required 
+                            accept="text" 
+                            autocomplete="username" 
+                            placeholder="admin"
+                            class="form-input mt-1 block w-full p-3 sm:p-3.5 border border-gray-300 
+                                dark:border-gray-600 rounded-xl shadow-sm 
+                                focus:outline-none
+                                dark:focus:border-indigo-400 
+                                bg-white/70 dark:bg-gray-700/70 
+                                text-gray-900 dark:text-gray-100
+                                placeholder-gray-400 dark:placeholder-gray-500
+                                transition-all duration-200
+                                text-base sm:text-sm">
+                    </div>
                 </div>
                 <div>
                     <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Password</label>
-                    <input type="password" id="password" name="password" required accept="password" autocomplete="current-password" placeholder="password123"
-                        class="mt-1 block w-full p-3 border border-gray-300 dark:border-gray-600 rounded-xl shadow-sm 
-                        focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 
-                        dark:focus:ring-indigo-400 dark:focus:border-indigo-400 
-                        bg-white/70 dark:bg-gray-700/70 
-                        text-gray-900 dark:text-gray-100
-                        placeholder-gray-400 dark:placeholder-gray-500
-                        transition-all duration-200">
+                    <div class="input-wrapper">
+                        <input type="password" 
+                            id="password" 
+                            name="password" 
+                            required 
+                            accept="password" 
+                            autocomplete="current-password" 
+                            placeholder="password123"
+                            class="form-input mt-1 block w-full p-3 border border-gray-300 dark:border-gray-600 rounded-xl shadow-sm 
+                                focus:outline-none
+                                dark:focus:border-indigo-400 
+                                bg-white/70 dark:bg-gray-700/70 
+                                text-gray-900 dark:text-gray-100
+                                placeholder-gray-400 dark:placeholder-gray-500
+                                transition-all duration-200">
+                    </div>
                 </div>
                 <button type="submit" 
                     class="w-full bg-gradient-to-r from-indigo-500 to-purple-600 dark:from-indigo-500 dark:to-purple-600 
@@ -201,6 +426,37 @@
                     hx-swap="outerHTML">
                     Sign Out
                 </button>
+            </div>
+        </div>
+    </div>
+    <div class="fab-container">
+        <button onclick="showLoginData()" 
+            class="fab bg-gradient-to-r from-indigo-500 to-purple-600 text-white"
+            title="Show example login data">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+        </button>
+        <button onclick="showMessage('Feature coming soon!')" 
+            class="fab bg-gradient-to-r from-emerald-500 to-teal-600 text-white"
+            title="More features coming soon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+            </svg>
+        </button>
+    </div>
+    <div id="loginDataModal" class="modal">
+        <div class="modal-content bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-xl">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white">Example Login Data</h3>
+                <button onclick="closeModal('loginDataModal')" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div id="loginDataContent" class="space-y-4">
+                <div class="animate-pulse">Loading...</div>
             </div>
         </div>
     </div>
@@ -317,6 +573,135 @@
             dot.style.setProperty('--translate-y', `${(Math.random() - 0.5) * 50}px`);
             
             document.querySelector('.dots-container').appendChild(dot);
+        });
+
+        // Function to show login data modal
+        async function showLoginData() {
+            const modal = document.getElementById('loginDataModal');
+            const content = document.getElementById('loginDataContent');
+            modal.style.display = 'block';
+            modal.offsetHeight;
+            modal.classList.add('show');
+            
+            try {
+                const response = await fetch('get_passwords.php');
+                const data = await response.json();
+                
+                content.innerHTML = `
+                    <div class="space-y-4">
+                        ${data.map(user => `
+                            <div class="credential-item p-4 bg-gray-50 dark:bg-gray-700 rounded-lg
+                                hover:bg-gray-100 dark:hover:bg-gray-600" 
+                                onclick="fillCredentials('${user.username}', '${user.password}')">
+                                <div class="font-medium text-gray-700 dark:text-gray-300">
+                                    Username: ${user.username}
+                                </div>
+                                <div class="text-gray-600 dark:text-gray-400">
+                                    Password: ${user.password}
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            } catch (error) {
+                content.innerHTML = `
+                    <div class="text-red-500 dark:text-red-400">
+                        Error loading login data. Please try again later.
+                    </div>
+                `;
+            }
+        }
+
+        // Add the fillCredentials function
+        function fillCredentials(username, password) {
+            const usernameInput = document.getElementById('username');
+            const passwordInput = document.getElementById('password');
+            
+            // Animate the inputs
+            usernameInput.style.transform = 'scale(1.02)';
+            passwordInput.style.transform = 'scale(1.02)';
+            
+            // Fill the credentials
+            usernameInput.value = username;
+            passwordInput.value = password;
+            
+            // Reset the animation
+            setTimeout(() => {
+                usernameInput.style.transform = '';
+                passwordInput.style.transform = '';
+            }, 200);
+            
+            // Close the modal with a slight delay
+            setTimeout(() => {
+                closeModal('loginDataModal');
+            }, 300);
+        }
+
+        // Function to show message modal
+        function showMessage(message) {
+            const modal = document.createElement('div');
+            modal.className = 'modal';
+            modal.innerHTML = `
+                <div class="modal-content bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-xl max-w-sm">
+                    <div class="text-center">
+                        <p class="text-gray-700 dark:text-gray-300 mb-4">${message}</p>
+                        <button onclick="closeModal(this.closest('.modal').id)" 
+                            class="px-4 py-2 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-lg
+                            hover:shadow-lg transition-all duration-200">
+                            OK
+                        </button>
+                    </div>
+                </div>
+            `;
+            modal.id = 'message-modal-' + Date.now();
+            document.body.appendChild(modal);
+            modal.style.display = 'block';
+            // Trigger reflow
+            modal.offsetHeight;
+            modal.classList.add('show');
+        }
+
+        // Function to close modal
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.remove('show');
+            
+            // Wait for the animation to complete before hiding
+            setTimeout(() => {
+                modal.style.display = 'none';
+                // If it's a message modal, remove it from the DOM
+                if (modalId.startsWith('message-modal-')) {
+                    modal.remove();
+                }
+            }, 300); // Match the transition duration
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                closeModal(event.target.id);
+            }
+        }
+
+        // Add ripple effect to theme toggle
+        darkModeToggle.addEventListener('click', function(e) {
+            const button = e.currentTarget;
+            const ripple = document.createElement('div');
+            const rect = button.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const x = e.clientX - rect.left - size / 2;
+            const y = e.clientY - rect.top - size / 2;
+            
+            ripple.style.width = ripple.style.height = `${size}px`;
+            ripple.style.left = `${x}px`;
+            ripple.style.top = `${y}px`;
+            ripple.className = 'ripple';
+            
+            button.appendChild(ripple);
+            
+            ripple.addEventListener('animationend', () => {
+                ripple.remove();
+            });
         });
     </script>
 </body>
