@@ -3,10 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secure Login</title>
+    <title>Brute Force Example Login</title>
+    <meta name="description" content="A simple login page with a brute force example.">
+    <meta name="keywords" content="login, brute force, example, security, login page, jotrorox">
+    <meta name="author" content="Johannes (Jotrorox) Müller - https://jotrorox.com">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#6d28d9">
+    <meta name="msapplication-TileColor" content="#6d28d9">
+    <meta name="msapplication-TileImage" content="/favicon.ico">
+    <meta name="msapplication-config" content="/browserconfig.xml">
+    <meta name="apple-mobile-web-app-title" content="Brute Force Example Login">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Brute Force Example Login">
     <script src="https://unpkg.com/htmx.org@2.0.4"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
     <style>
         @keyframes fadeIn {
             from { opacity: 0; transform: scale(0.98); }
@@ -23,7 +37,7 @@
             animation: slideDown 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Nunito', sans-serif;
         }
         @keyframes iconFloat {
             0%, 100% { transform: translateY(0); }
@@ -138,7 +152,7 @@
             <form id="login-form" method="POST" action="login.php" hx-post="login.php" hx-target="#login-form-container" class="space-y-6">
                 <div>
                     <label for="username" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Username</label>
-                    <input type="text" id="username" name="username" required 
+                    <input type="text" id="username" name="username" required accept="text" autocomplete="username" placeholder="admin"
                         class="mt-1 block w-full p-3 sm:p-3.5 border border-gray-300 
                         dark:border-gray-600 rounded-xl shadow-sm 
                         focus:outline-none focus:ring-2 focus:ring-indigo-500 
@@ -146,17 +160,19 @@
                         dark:focus:ring-indigo-400 dark:focus:border-indigo-400 
                         bg-white/70 dark:bg-gray-700/70 
                         text-gray-900 dark:text-gray-100
+                        placeholder-gray-400 dark:placeholder-gray-500
                         transition-all duration-200
                         text-base sm:text-sm">
                 </div>
                 <div>
                     <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Password</label>
-                    <input type="password" id="password" name="password" required 
+                    <input type="password" id="password" name="password" required accept="password" autocomplete="current-password" placeholder="password123"
                         class="mt-1 block w-full p-3 border border-gray-300 dark:border-gray-600 rounded-xl shadow-sm 
                         focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 
                         dark:focus:ring-indigo-400 dark:focus:border-indigo-400 
                         bg-white/70 dark:bg-gray-700/70 
                         text-gray-900 dark:text-gray-100
+                        placeholder-gray-400 dark:placeholder-gray-500
                         transition-all duration-200">
                 </div>
                 <button type="submit" 
@@ -236,27 +252,25 @@
             }
         });
 
-        // Create animated background dots
+        // Modify createDots function to set initial positions in pixels instead of percentages
         function createDots() {
             const container = document.querySelector('.dots-container');
-            const dotsCount = window.innerWidth < 768 ? 15 : 25; // Fewer dots on mobile
+            const dotsCount = window.innerWidth < 768 ? 15 : 25;
             
             for (let i = 0; i < dotsCount; i++) {
                 const dot = document.createElement('div');
                 dot.className = 'dot';
                 
-                // Random size between 50px and 150px
                 const size = Math.random() * 100 + 50;
                 dot.style.width = `${size}px`;
                 dot.style.height = `${size}px`;
                 
-                // Random position
-                const left = Math.random() * 100;
-                const top = Math.random() * 100;
-                dot.style.left = `${left}%`;
-                dot.style.top = `${top}%`;
+                // Use pixels instead of percentages for position
+                const left = Math.random() * container.offsetWidth;
+                const top = Math.random() * container.offsetHeight;
+                dot.style.left = `${left}px`;
+                dot.style.top = `${top}px`;
                 
-                // Random animation properties
                 dot.style.setProperty('--duration', `${Math.random() * 10 + 10}s`);
                 dot.style.setProperty('--delay', `-${Math.random() * 10}s`);
                 dot.style.setProperty('--translate-x', `${(Math.random() - 0.5) * 50}px`);
@@ -278,6 +292,31 @@
                 container.innerHTML = '';
                 createDots();
             }, 250);
+        });
+
+        document.addEventListener('click', (e) => {
+            const dot = document.createElement('div');
+            dot.className = 'dot';
+            
+            // Random size between 50px and 150px
+            const size = Math.random() * 100 + 50;
+            dot.style.width = `${size}px`;
+            dot.style.height = `${size}px`;
+            
+            // Position relative to click with offset for dot size
+            const rect = document.querySelector('.dots-container').getBoundingClientRect();
+            const left = (e.clientX - rect.left - size/2);
+            const top = (e.clientY - rect.top - size/2);
+            dot.style.left = `${left}px`;
+            dot.style.top = `${top}px`;
+            
+            // Add animation properties
+            dot.style.setProperty('--duration', `${Math.random() * 10 + 10}s`);
+            dot.style.setProperty('--delay', '0s');
+            dot.style.setProperty('--translate-x', `${(Math.random() - 0.5) * 50}px`);
+            dot.style.setProperty('--translate-y', `${(Math.random() - 0.5) * 50}px`);
+            
+            document.querySelector('.dots-container').appendChild(dot);
         });
     </script>
 </body>
