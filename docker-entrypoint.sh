@@ -1,12 +1,19 @@
 #!/bin/bash
 set -e
 
-# Ensure proper permissions
+# Set proper ownership for all files
 chown -R www-data:www-data /var/www/brute-force-demo
-chmod -R 755 /var/www/brute-force-demo/public
-chmod -R 750 /var/www/brute-force-demo/includes
-chmod -R 750 /var/www/brute-force-demo/config
-chmod -R 750 /var/www/brute-force-demo/data
+
+# Set directory permissions
+find /var/www/brute-force-demo -type d -exec chmod 755 {} \;
+
+# Set file permissions
+find /var/www/brute-force-demo -type f -exec chmod 644 {} \;
+
+# Give execute permissions to PHP files
+find /var/www/brute-force-demo -name "*.php" -exec chmod 755 {} \;
+
+# Protect sensitive files
 chmod 640 /var/www/brute-force-demo/data/users.txt
 
 # Start PHP-FPM
