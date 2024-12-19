@@ -15,12 +15,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (isset($users[$username]) && trim($users[$username]) === trim($password)) {
         $_SESSION['username'] = $username;
-        // echo '<div id="user-name-value" class="d-none">' . htmlspecialchars($username) . '</div>';
-        echo '<div class="alert alert-success">Login successful! Welcome, ' . htmlspecialchars($username) . '.</div>';
+        // Hide login form and show logout section
+        echo '<script>
+            document.getElementById("login-form").style.display = "none";
+            document.getElementById("logout-container").classList.remove("hidden");
+            document.getElementById("user-name").textContent = "' . htmlspecialchars($username) . '";
+        </script>';
     } else {
-        echo '<div class="alert alert-danger">Invalid username or password. Please try again.</div>';
+        echo '<div class="p-4 mb-4 text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800" role="alert">
+            Invalid username or password. Please try again.
+        </div>';
     }
 } else {
-    echo '<div class="alert alert-danger">Invalid request method.</div>';
+    echo '<div class="p-4 mb-4 text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800" role="alert">
+        Invalid request method.
+    </div>';
 }
 ?>

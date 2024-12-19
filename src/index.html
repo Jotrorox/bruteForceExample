@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page with Dark Mode</title>
+    <title>Brute Force Example</title>
     <script src="https://unpkg.com/htmx.org@2.0.4"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -53,7 +53,11 @@
         <div id="logout-container" class="mt-6 hidden slide-down">
             <div class="text-center">
                 <p class="text-gray-700 dark:text-gray-300 text-lg">Welcome, <span id="user-name" class="font-semibold text-indigo-600 dark:text-indigo-400"></span>!</p>
-                <button id="logout-button" class="mt-4 bg-red-500 dark:bg-red-600 text-white py-3 px-6 rounded-lg shadow-lg hover:bg-red-600 dark:hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-300 dark:focus:ring-red-500" hx-post="logout.php" hx-target="body">Logout</button>
+                <button id="logout-button" 
+                    class="mt-4 bg-red-500 dark:bg-red-600 text-white py-3 px-6 rounded-lg shadow-lg hover:bg-red-600 dark:hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-300 dark:focus:ring-red-500" 
+                    hx-post="logout.php" 
+                    hx-target="body"
+                    hx-swap="outerHTML">Logout</button>
             </div>
         </div>
     </div>
