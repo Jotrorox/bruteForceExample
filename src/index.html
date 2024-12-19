@@ -315,6 +315,41 @@
                 opacity: 0;
             }
         }
+
+        /* Update the scrollbar styles for a more modern look */
+        .custom-scrollbar {
+            scrollbar-width: thin;
+            scrollbar-color: rgba(99, 102, 241, 0.3) transparent;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+            margin: 4px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: linear-gradient(to bottom, rgba(99, 102, 241, 0.5), rgba(168, 85, 247, 0.5));
+            border-radius: 100vh;
+            border: 1px solid transparent;
+            background-clip: padding-box;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(to bottom, rgba(99, 102, 241, 0.7), rgba(168, 85, 247, 0.7));
+        }
+
+        .dark .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: linear-gradient(to bottom, rgba(99, 102, 241, 0.3), rgba(168, 85, 247, 0.3));
+        }
+
+        .dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(to bottom, rgba(99, 102, 241, 0.5), rgba(168, 85, 247, 0.5));
+        }
     </style>
     <script>
         tailwind.config = {
@@ -437,11 +472,11 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
         </button>
-        <button onclick="showMessage('Feature coming soon!')" 
-            class="fab bg-gradient-to-r from-emerald-500 to-teal-600 text-white"
-            title="More features coming soon">
+        <button onclick="showBruteForceSimulator()" 
+            class="fab bg-gradient-to-r from-rose-500 to-red-600 text-white"
+            title="Brute Force Simulator">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
             </svg>
         </button>
     </div>
@@ -457,6 +492,125 @@
             </div>
             <div id="loginDataContent" class="space-y-4">
                 <div class="animate-pulse">Loading...</div>
+            </div>
+        </div>
+    </div>
+    <div id="bruteForceModal" class="modal">
+        <div class="modal-content bg-white dark:bg-gray-800 rounded-2xl p-4 sm:p-6 shadow-xl 
+            max-w-2xl w-[95%] sm:w-full mx-auto">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">Brute Force Simulator</h3>
+                <button onclick="closeModal('bruteForceModal')" 
+                    class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div class="space-y-4">
+                <div class="flex flex-col sm:flex-row sm:space-x-4 space-y-4 sm:space-y-0">
+                    <div class="flex-1">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Target Username</label>
+                        <div class="input-wrapper">
+                            <input type="text" 
+                                id="bruteforce-username" 
+                                class="form-input mt-1 block w-full p-3 border border-gray-300 dark:border-gray-600 rounded-xl shadow-sm 
+                                    focus:outline-none
+                                    dark:focus:border-indigo-400 
+                                    bg-white/70 dark:bg-gray-700/70 
+                                    text-gray-900 dark:text-gray-100
+                                    transition-all duration-200" 
+                                value="admin">
+                        </div>
+                    </div>
+                    <div class="flex-1">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Speed (ms)</label>
+                        <div class="input-wrapper relative">
+                            <input type="number" 
+                                id="bruteforce-speed" 
+                                class="form-input mt-1 block w-full p-3 pl-12 border border-gray-300 dark:border-gray-600 rounded-xl shadow-sm 
+                                    focus:outline-none
+                                    dark:focus:border-indigo-400 
+                                    bg-white/70 dark:bg-gray-700/70 
+                                    text-gray-900 dark:text-gray-100
+                                    transition-all duration-200" 
+                                value="100" 
+                                min="10" 
+                                max="1000"
+                                step="10">
+                            <div class="absolute inset-y-0 left-0 mt-1 flex items-center pl-3 pointer-events-none text-gray-500 dark:text-gray-400">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Password List</label>
+                    <div class="input-wrapper">
+                        <textarea id="bruteforce-passwords" 
+                            rows="4" 
+                            class="form-input mt-1 block w-full p-3 border border-gray-300 dark:border-gray-600 rounded-xl shadow-sm 
+                                focus:outline-none
+                                dark:focus:border-indigo-400 
+                                bg-white/70 dark:bg-gray-700/70 
+                                text-gray-900 dark:text-gray-100
+                                font-mono text-sm
+                                transition-all duration-200
+                                resize-none"
+                            placeholder="Enter passwords, one per line"></textarea>
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
+                    <div class="flex space-x-2 w-full sm:w-auto">
+                        <button onclick="startBruteForce()" 
+                            id="start-bruteforce"
+                            class="flex-1 sm:flex-none px-6 py-3 bg-gradient-to-r from-rose-500 to-red-600 text-white rounded-xl shadow-lg 
+                            hover:shadow-xl hover:scale-[1.02] 
+                            active:scale-[0.98]
+                            transition-all duration-200
+                            disabled:opacity-50 disabled:cursor-not-allowed">
+                            Start Attack
+                        </button>
+                        <button onclick="stopBruteForce()" 
+                            id="stop-bruteforce"
+                            class="flex-1 sm:flex-none px-6 py-3 bg-gray-500 text-white rounded-xl shadow-lg 
+                            hover:shadow-xl hover:scale-[1.02] 
+                            active:scale-[0.98]
+                            transition-all duration-200
+                            disabled:opacity-50 disabled:cursor-not-allowed" 
+                            disabled>
+                            Stop
+                        </button>
+                    </div>
+                    <button onclick="loadCommonPasswords()" 
+                        class="w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-xl shadow-lg 
+                        hover:shadow-xl hover:scale-[1.02] 
+                        active:scale-[0.98]
+                        transition-all duration-200">
+                        Load Common Passwords
+                    </button>
+                </div>
+
+                <div class="mt-6">
+                    <div class="flex justify-between text-sm text-gray-600 dark:text-gray-400 mb-2">
+                        <span>Progress:</span>
+                        <span id="bruteforce-progress">0/0 (0%)</span>
+                    </div>
+                    <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3 overflow-hidden">
+                        <div id="bruteforce-progress-bar" 
+                            class="bg-gradient-to-r from-rose-500 to-red-600 h-full rounded-full transition-all duration-200 ease-out"
+                            style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <div id="bruteforce-log" 
+                    class="mt-6 p-4 bg-gray-100 dark:bg-gray-900 rounded-xl h-48 overflow-y-auto font-mono text-sm
+                    border border-gray-200 dark:border-gray-700 custom-scrollbar">
+                </div>
             </div>
         </div>
     </div>
@@ -703,6 +857,126 @@
                 ripple.remove();
             });
         });
+
+        let bruteforceInterval;
+        let passwords = [];
+        let currentIndex = 0;
+        let targetCredentials = null;
+
+        async function showBruteForceSimulator() {
+            const modal = document.getElementById('bruteForceModal');
+            modal.style.display = 'block';
+            modal.offsetHeight;
+            modal.classList.add('show');
+            
+            // Fetch the actual passwords for comparison
+            try {
+                const response = await fetch('get_passwords.php');
+                targetCredentials = await response.json();
+            } catch (error) {
+                console.error('Error loading passwords:', error);
+            }
+        }
+
+        function loadCommonPasswords() {
+            const commonPasswords = [
+                'password123', '123456', 'admin123', 'qwerty',
+                'letmein', 'welcome', 'monkey123', 'football',
+                'abc123', 'password1', '123456789', 'admin',
+                'test123', '12345', 'password', 'root',
+                'userpass', 'doepass'
+            ];
+            document.getElementById('bruteforce-passwords').value = commonPasswords.join('\n');
+        }
+
+        function addLogEntry(message, type = 'info') {
+            const log = document.getElementById('bruteforce-log');
+            const entry = document.createElement('div');
+            entry.className = `py-1 ${type === 'success' ? 'text-green-600 dark:text-green-400' : 
+                                type === 'error' ? 'text-red-600 dark:text-red-400' : 
+                                'text-gray-600 dark:text-gray-400'}`;
+            entry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            log.appendChild(entry);
+            log.scrollTop = log.scrollHeight;
+        }
+
+        function updateProgress() {
+            const total = passwords.length;
+            const current = Math.min(currentIndex, total); // Ensure current doesn't exceed total
+            
+            // Only show progress if there are passwords
+            if (total === 0) {
+                document.getElementById('bruteforce-progress').textContent = '0/0 (0%)';
+                document.getElementById('bruteforce-progress-bar').style.width = '0%';
+                return;
+            }
+            
+            // If we've reached the end, show total/total
+            if (currentIndex >= total) {
+                document.getElementById('bruteforce-progress').textContent = `${total}/${total} (100%)`;
+                document.getElementById('bruteforce-progress-bar').style.width = '100%';
+                return;
+            }
+            
+            // Otherwise show current progress
+            const percentage = Math.round((current / total) * 100);
+            document.getElementById('bruteforce-progress').textContent = 
+                `${current}/${total} (${percentage}%)`;
+            document.getElementById('bruteforce-progress-bar').style.width = `${percentage}%`;
+        }
+
+        function startBruteForce() {
+            const username = document.getElementById('bruteforce-username').value;
+            passwords = document.getElementById('bruteforce-passwords').value
+                .split('\n')
+                .filter(p => p.trim());
+            
+            if (!passwords.length) {
+                addLogEntry('No passwords provided!', 'error');
+                return;
+            }
+
+            currentIndex = 0;
+            document.getElementById('start-bruteforce').disabled = true;
+            document.getElementById('stop-bruteforce').disabled = false;
+            document.getElementById('bruteforce-log').innerHTML = '';
+            document.getElementById('bruteforce-progress-bar').style.backgroundColor = ''; // Reset color
+            
+            addLogEntry(`Starting brute force attack on username: ${username}`);
+            updateProgress(); // Update initial progress
+            
+            bruteforceInterval = setInterval(() => {
+                const currentPassword = passwords[currentIndex];
+                addLogEntry(`Trying password: ${currentPassword}`);
+
+                // Check if the password matches any user
+                const match = targetCredentials.find(
+                    cred => cred.username === username && cred.password === currentPassword
+                );
+
+                if (match) {
+                    stopBruteForce();
+                    addLogEntry(`Success! Password found: ${currentPassword}`, 'success');
+                    // Animate the success
+                    document.getElementById('bruteforce-progress-bar').style.backgroundColor = '#22c55e';
+                }
+
+                currentIndex++;
+                updateProgress();
+
+                // Check if we're done after updating progress
+                if (currentIndex >= passwords.length) {
+                    stopBruteForce();
+                    addLogEntry('Attack finished - Password not found', 'error');
+                }
+            }, parseInt(document.getElementById('bruteforce-speed').value));
+        }
+
+        function stopBruteForce() {
+            clearInterval(bruteforceInterval);
+            document.getElementById('start-bruteforce').disabled = false;
+            document.getElementById('stop-bruteforce').disabled = true;
+        }
     </script>
 </body>
 </html>
