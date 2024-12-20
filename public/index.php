@@ -1,6 +1,5 @@
 <?php
 require_once '/var/www/brute-force-demo/config/config.php';
-session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,6 +24,10 @@ session_start();
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://unpkg.com">
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="preload" href="https://unpkg.com/htmx.org@2.0.4" as="script">
+    <link rel="preload" href="https://cdn.tailwindcss.com" as="script">
     <style>
         @keyframes fadeIn {
             from { opacity: 0; transform: scale(0.98); }
@@ -637,6 +640,8 @@ session_start();
             </div>
         </div>
     </div>
+    <script defer src="https://unpkg.com/htmx.org@2.0.4"></script>
+    <script defer src="https://cdn.tailwindcss.com"></script>
     <script>
         const darkModeToggle = document.getElementById('darkModeToggle');
         const htmlElement = document.documentElement;

@@ -1,8 +1,28 @@
 <?php
 require_once '/var/www/brute-force-demo/config/config.php';
-session_start();
+
+// Cache users data in memory
+static $users = null;
+
+function get_users() {
+    global $users;
+    if ($users === null) {
+        $users = [];
+        $file = fopen(DATA_PATH . '/users.txt', 'r');
+        if ($file) {
+            while (($line = fgetcsv($file, 1000, ':')) !== false) {
+                $users[$line[0]] = $line[1];
+            }
+            fclose($file);
+        }
+    }
+    return $users;
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Use cached users data
+    $users = get_users();
+    
     // If no credentials are provided, just return the login form
     if (!isset($_POST['username']) && !isset($_POST['password']) && isset($_SESSION['username'])) {
         ?>

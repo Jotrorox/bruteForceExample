@@ -1,6 +1,5 @@
 <?php
 require_once '/var/www/brute-force-demo/config/config.php';
-session_start();
 
 session_unset();
 session_destroy();

@@ -1,6 +1,5 @@
 <?php
 require_once '/var/www/brute-force-demo/config/config.php';
-session_start();
 
 if (!isset($_SESSION['username'])) {
     http_response_code(403);
