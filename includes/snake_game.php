@@ -281,7 +281,81 @@ function changeDirection(event) {
     if (key === 'ArrowRight' && direction !== 'left') direction = 'right';
 }
 
+// Enhanced particle system with smoother animations
+class ParticleSystem {
+    constructor() {
+        this.particles = [];
+    }
+
+    createParticles(x, y, color) {
+        const particleCount = 16;  // More particles for a fuller effect
+        
+        for (let i = 0; i < particleCount; i++) {
+            const angle = (i / particleCount) * Math.PI * 2;
+            const speed = 8 + Math.random() * 4; // More consistent speed
+            
+            this.particles.push({
+                x: x,
+                y: y,
+                vx: Math.cos(angle) * speed,
+                vy: Math.sin(angle) * speed,
+                size: 3,  // Consistent size for smoother look
+                alpha: 1,
+                color: color
+            });
+        }
+    }
+
+    update() {
+        for (let i = this.particles.length - 1; i >= 0; i--) {
+            const p = this.particles[i];
+            
+            // Smoother movement
+            p.x += p.vx;
+            p.y += p.vy;
+            
+            // Gentle deceleration
+            p.vx *= 0.98;
+            p.vy *= 0.98;
+            
+            // Smoother fade out
+            p.alpha *= 0.95;
+            
+            if (p.alpha < 0.01) {
+                this.particles.splice(i, 1);
+            }
+        }
+    }
+
+    draw(ctx) {
+        ctx.save();
+        
+        for (const p of this.particles) {
+            ctx.globalAlpha = p.alpha;
+            ctx.fillStyle = p.color;
+            ctx.shadowColor = p.color;
+            ctx.shadowBlur = 8;
+            
+            // Draw circular particles for smoother look
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            ctx.fill();
+        }
+        
+        ctx.restore();
+    }
+}
+
+// Create particle system instance
+const particleSystem = new ParticleSystem();
+
+// Add snake segment animation
+let newSegmentScale = 1;
+
 function gameStep() {
+    // Update particle system
+    particleSystem.update();
+    
     // Create new head based on direction
     const head = {x: snake[0].x, y: snake[0].y};
     
@@ -318,11 +392,26 @@ function gameStep() {
     
     // Check if food is eaten
     if (head.x === food.x && head.y === food.y) {
+        // Create particles with food color
+        particleSystem.createParticles(
+            (food.x + 0.5) * gridSize,
+            (food.y + 0.5) * gridSize,
+            'rgb(239, 68, 68)'
+        );
+        
+        // More dynamic scale animation
+        newSegmentScale = 1.8;  // Increased initial scale
+        
         score += 10;
         document.getElementById('score').textContent = score;
         createFood();
     } else {
         snake.pop();
+    }
+    
+    // Update new segment animation
+    if (newSegmentScale > 1) {
+        newSegmentScale = Math.max(1, newSegmentScale * 0.85);  // Smoother scale down
     }
     
     // Draw everything
@@ -372,6 +461,19 @@ function draw() {
         ctx.fillStyle = gradient;
         ctx.shadowColor = 'rgba(99, 102, 241, 0.5)';
         ctx.shadowBlur = 10;
+        
+        // Apply scale animation to new segments
+        if (index === snake.length - 1 && newSegmentScale > 1) {
+            const scale = newSegmentScale;
+            const centerX = (segment.x + 0.5) * gridSize;
+            const centerY = (segment.y + 0.5) * gridSize;
+            
+            ctx.save();
+            ctx.translate(centerX, centerY);
+            ctx.scale(scale, scale);
+            ctx.translate(-centerX, -centerY);
+        }
+        
         ctx.beginPath();
         ctx.roundRect(
             segment.x * gridSize + 1,
@@ -381,6 +483,10 @@ function draw() {
             4
         );
         ctx.fill();
+        
+        if (index === snake.length - 1 && newSegmentScale > 1) {
+            ctx.restore();
+        }
     });
     
     // Draw food with glow effect
@@ -406,6 +512,9 @@ function draw() {
         Math.PI * 2
     );
     ctx.fill();
+    
+    // Draw particles
+    particleSystem.draw(ctx);
     
     // Reset shadow
     ctx.shadowBlur = 0;
