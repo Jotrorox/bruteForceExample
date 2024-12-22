@@ -40,7 +40,7 @@
 
         body {
             font-family: 'Ubuntu', sans-serif;
-            height: 100vh;
+            min-height: 100vh;
             background-color: var(--bg-color);
             color: var(--text-color);
             display: flex;
@@ -48,79 +48,140 @@
             justify-content: center;
             padding: 20px;
             transition: background-color 0.3s ease;
+            position: relative;
         }
 
-        #login-container {
+        .container-wrapper {
+            width: 100%;
+            max-width: 400px;
+            position: relative;
+            min-height: 450px;
+        }
+
+        #login-container,
+        #register-container,
+        .logged-in-container {
             width: 100%;
             max-width: 400px;
             padding: 2rem;
             background-color: var(--container-bg);
             color: var(--text-color);
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        #register-container {
+            opacity: 0;
+            transform: translateY(20px);
+            pointer-events: none;
+        }
+
+        #register-container.active {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: all;
+        }
+
+        #login-container.hidden {
+            opacity: 0;
+            transform: translateY(-20px);
+            pointer-events: none;
+        }
+
+        .logged-in-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 3rem 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            pointer-events: none;
+        }
+
+        .logged-in-container.active {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: all;
         }
 
         .login-header {
             text-align: center;
-            font-size: 1.5rem;
-            font-weight: 500;
+            font-size: 1.8rem;
+            font-weight: 600;
             color: var(--text-color);
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
         }
 
         .login-form {
             display: flex;
             flex-direction: column;
-            gap: 1rem;
-            width: 100%;
+            gap: 1.2rem;
         }
 
         .login-form label {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
+            position: relative;
         }
 
         .login-form input {
-            padding: 0.75rem;
-            border: 1px solid var(--border-color);
-            border-radius: 5px;
+            width: 100%;
+            padding: 1rem 1.2rem;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
             font-size: 1rem;
-            margin-bottom: 0.5rem;
-            transition: border-color 0.3s ease;
-            background-color: var(--container-bg);
+            background-color: var(--bg-color);
             color: var(--text-color);
+            transition: all 0.3s ease;
         }
 
         .login-form input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
             outline: none;
-            border-color: #4a90e2;
         }
 
         .login-form button {
             background-color: var(--primary-color);
             color: white;
-            padding: 0.75rem 2rem;
+            padding: 1rem;
             border: none;
-            border-radius: 25px;
+            border-radius: 12px;
             font-size: 1rem;
-            font-weight: 500;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            width: 100%;
             margin-top: 0.5rem;
         }
 
         .login-form button:hover {
             background-color: var(--primary-hover);
             transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
 
-        .login-form button:active {
-            transform: translateY(0);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        .user-avatar {
+            width: 130px;
+            height: 130px;
+            margin: 0 auto 2rem;
+            border-radius: 65px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            color: white;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .user-avatar:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
         }
 
         #message {
@@ -414,6 +475,45 @@
             background-color: var(--border-color);
             transform: rotate(90deg);
         }
+
+        .register-link {
+            text-align: center;
+            margin-top: 1rem;
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+
+        .register-link a {
+            color: var(--primary-color);
+            text-decoration: none;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+
+        .back-to-login {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            cursor: pointer;
+            padding: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+
+        .back-to-login:hover {
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
@@ -423,17 +523,42 @@
     <button class="hint-btn" id="hint-btn" aria-label="Show login hints">
         💡
     </button>
-    <div id="login-container">
-        <h1 class="login-header">Welcome Back</h1>
-        <form class="login-form" onsubmit="login(); return false;">
-            <label>
-                <input type="text" name="username" placeholder="Username" required autocomplete="username">
-            </label>
-            <label>
-                <input type="password" name="password" placeholder="Password" required autocomplete="current-password">
-            </label>
-            <button type="submit">Login</button>
-        </form>
+    
+    <div class="container-wrapper">
+        <div id="login-container">
+            <h1 class="login-header">Welcome Back</h1>
+            <form class="login-form" onsubmit="login(); return false;">
+                <label>
+                    <input type="text" name="username" placeholder="Username" required autocomplete="username">
+                </label>
+                <label>
+                    <input type="password" name="password" placeholder="Password" required autocomplete="current-password">
+                </label>
+                <button type="submit">Sign In</button>
+            </form>
+            <div class="register-link">
+                Don't have an account? <a onclick="showRegisterForm()">Register</a>
+            </div>
+        </div>
+
+        <div id="register-container">
+            <button class="back-to-login" onclick="showLoginForm()">
+                ← Back to Login
+            </button>
+            <h1 class="login-header">Create Account</h1>
+            <form class="login-form" onsubmit="register(); return false;">
+                <label>
+                    <input type="text" name="reg-username" placeholder="Username" required>
+                </label>
+                <label>
+                    <input type="password" name="reg-password" placeholder="Password" required>
+                </label>
+                <label>
+                    <input type="password" name="reg-confirm-password" placeholder="Confirm Password" required>
+                </label>
+                <button type="submit">Create Account</button>
+            </form>
+        </div>
     </div>
 
     <div id="message"></div>
@@ -449,6 +574,86 @@
                 "password": "iLoveMyCat",
             },
         ];
+
+        // Load stored users from localStorage
+        let storedUsers = JSON.parse(localStorage.getItem('registeredUsers')) || [];
+        loginData = [...loginData, ...storedUsers];
+
+        // Add these functions before setup()
+        function showRegisterForm() {
+            const loginContainer = document.getElementById('login-container');
+            const registerContainer = document.getElementById('register-container');
+            loginContainer.classList.add('hidden');
+            registerContainer.classList.add('active');
+        }
+
+        function showLoginForm() {
+            const loginContainer = document.getElementById('login-container');
+            const registerContainer = document.getElementById('register-container');
+            loginContainer.classList.remove('hidden');
+            registerContainer.classList.remove('active');
+        }
+
+        function register() {
+            const username = document.querySelector('input[name="reg-username"]').value;
+            const password = document.querySelector('input[name="reg-password"]').value;
+            const confirmPassword = document.querySelector('input[name="reg-confirm-password"]').value;
+            const form = document.querySelector('#register-container .login-form');
+
+            // Remove existing error messages
+            const existingError = form.querySelector('.error-message');
+            if (existingError) existingError.remove();
+
+            // Validate input
+            if (password !== confirmPassword) {
+                showRegistrationError("Passwords don't match");
+                return;
+            }
+
+            if (password.length < 6) {
+                showRegistrationError("Password must be at least 6 characters long");
+                return;
+            }
+
+            // Check if username already exists
+            if (loginData.some(user => user.username === username)) {
+                showRegistrationError("Username already exists");
+                return;
+            }
+
+            // Create new user
+            const newUser = { username, password };
+            storedUsers.push(newUser);
+            loginData.push(newUser);
+
+            // Save to localStorage
+            localStorage.setItem('registeredUsers', JSON.stringify(storedUsers));
+
+            // Show success message and redirect to login
+            const message = document.getElementById('message');
+            message.className = 'success';
+            message.textContent = 'Registration successful! Please login.';
+            message.hidden = false;
+
+            // Clear form and show login
+            form.reset();
+            showLoginForm();
+
+            // Hide success message after 3 seconds
+            setTimeout(() => {
+                message.hidden = true;
+            }, 3000);
+        }
+
+        function showRegistrationError(errorMessage) {
+            const form = document.querySelector('#register-container .login-form');
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'error-message';
+            errorDiv.textContent = errorMessage;
+            form.appendChild(errorDiv);
+            form.classList.add('error-shake');
+            setTimeout(() => form.classList.remove('error-shake'), 500);
+        }
 
         // Session management
         class SessionManager {
@@ -594,6 +799,10 @@
                             <span class="username">👤 ${cred.username}</span>
                             <span class="password">${cred.password}</span>
                         `;
+                        // Add a special indicator for registered users
+                        if (storedUsers.some(user => user.username === cred.username)) {
+                            credItem.style.borderLeft = '4px solid var(--primary-color)';
+                        }
                         credItem.addEventListener('click', () => {
                             const usernameInput = document.querySelector('input[name="username"]');
                             const passwordInput = document.querySelector('input[name="password"]');
@@ -706,59 +915,51 @@
 
         // Update postLogin function to use ProfileImageGenerator
         function postLogin(username) {
-            const form = document.getElementById('login-container');
+            const loginContainer = document.getElementById('login-container');
+            const registerContainer = document.getElementById('register-container');
             const message = document.getElementById('message');
             
-            // Create a new container for logged-in view
+            // Remove existing logged-in container if it exists
+            const existingLoggedIn = document.querySelector('.logged-in-container');
+            if (existingLoggedIn) {
+                existingLoggedIn.remove();
+            }
+            
+            // Create new logged-in container
             const loggedInContainer = document.createElement('div');
             loggedInContainer.className = 'logged-in-container';
             
-            // Create user avatar
+            // Create content
             const avatar = document.createElement('div');
             avatar.className = 'user-avatar';
             ProfileImageGenerator.updateAvatar(avatar, username);
             
-            // Create welcome message
             const welcomeText = document.createElement('h2');
             welcomeText.className = 'welcome-text';
-            welcomeText.textContent = 'Welcome back!';
+            welcomeText.textContent = `Welcome back, ${username}!`;
             
-            // Create user info
-            const userInfo = document.createElement('p');
-            userInfo.className = 'user-info';
-            userInfo.textContent = `Logged in as ${username}`;
-            
-            // Create logout button
             const logoutBtn = document.createElement('button');
             logoutBtn.className = 'logout-btn';
             logoutBtn.textContent = 'Sign Out';
             logoutBtn.onclick = logout;
             
-            // Create session info
-            const sessionInfo = document.createElement('p');
-            sessionInfo.className = 'session-info';
-            const sessionStart = new Date().toLocaleTimeString();
-            sessionInfo.textContent = `Session started at ${sessionStart}`;
-            
-            // Append all elements to the container
+            // Add elements to container
             loggedInContainer.appendChild(avatar);
             loggedInContainer.appendChild(welcomeText);
-            loggedInContainer.appendChild(userInfo);
             loggedInContainer.appendChild(logoutBtn);
-            loggedInContainer.appendChild(sessionInfo);
             
-            // Update the DOM
-            form.hidden = true;
+            // Add container to wrapper
+            document.querySelector('.container-wrapper').appendChild(loggedInContainer);
+            
+            // Hide other containers with animation
+            loginContainer.classList.add('hidden');
+            registerContainer.classList.remove('active');
             message.hidden = true;
             
-            // Remove any existing logged-in container
-            const existingContainer = document.querySelector('.logged-in-container');
-            if (existingContainer) {
-                existingContainer.remove();
-            }
-            
-            // Add the new container to the body
-            document.body.appendChild(loggedInContainer);
+            // Show logged-in container with animation
+            requestAnimationFrame(() => {
+                loggedInContainer.classList.add('active');
+            });
         }
 
         function checkLogin(username, password) {
@@ -774,18 +975,32 @@
         // Add logout functionality
         function logout() {
             SessionManager.clearSession();
-            const container = document.getElementById('login-container');
+            
+            const loginContainer = document.getElementById('login-container');
+            const registerContainer = document.getElementById('register-container');
             const loggedInContainer = document.querySelector('.logged-in-container');
-            
-            if (loggedInContainer) {
-                loggedInContainer.remove();
-            }
-            
-            container.hidden = false;
             
             // Clear input fields
             document.querySelector('input[name="username"]').value = '';
             document.querySelector('input[name="password"]').value = '';
+            
+            // Remove error states if any
+            const errorMessages = document.querySelectorAll('.error-message');
+            errorMessages.forEach(msg => msg.remove());
+            
+            const errorInputs = document.querySelectorAll('.error');
+            errorInputs.forEach(input => input.classList.remove('error'));
+            
+            // Hide logged in container with animation
+            loggedInContainer.classList.remove('active');
+            
+            // Wait for animation to complete before removing
+            setTimeout(() => {
+                loggedInContainer.remove();
+                // Show login container with animation
+                loginContainer.classList.remove('hidden');
+                registerContainer.classList.remove('active');
+            }, 300);
         }
     </script>
 </body>
