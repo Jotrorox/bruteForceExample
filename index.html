@@ -14,36 +14,284 @@
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
 
     <style>
+        :root {
+            --bg-color: #f5f5f5;
+            --container-bg: white;
+            --text-color: #333;
+            --border-color: #ddd;
+            --primary-color: #4a90e2;
+            --primary-hover: #357abd;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #1a1a1a;
+            --container-bg: #2d2d2d;
+            --text-color: #e0e0e0;
+            --border-color: #404040;
+            --primary-color: #5c9ce6;
+            --primary-hover: #4a90e2;
+        }
+
         * {
             margin: 0;
             padding: 0;
-
             box-sizing: border-box;
         }
 
         body {
             font-family: 'Ubuntu', sans-serif;
+            height: 100vh;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            transition: background-color 0.3s ease;
+        }
 
+        #login-container {
+            width: 100%;
+            max-width: 400px;
+            padding: 2rem;
+            background-color: var(--container-bg);
+            color: var(--text-color);
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-header {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: var(--text-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            width: 100%;
+        }
+
+        .login-form label {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .login-form input {
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            transition: border-color 0.3s ease;
+            background-color: var(--container-bg);
+            color: var(--text-color);
+        }
+
+        .login-form input:focus {
+            outline: none;
+            border-color: #4a90e2;
+        }
+
+        .login-form button {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            margin-top: 0.5rem;
+        }
+
+        .login-form button:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .login-form button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        #message {
+            text-align: center;
+            padding: 1rem;
+            border-radius: 5px;
+        }
+
+        #message.success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        #message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        @media (max-width: 480px) {
+            #login-container {
+                padding: 1.5rem;
+            }
+
+            .login-header {
+                font-size: 1.25rem;
+            }
+        }
+
+        #theme-toggle {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.5rem;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            border: none;
+            background-color: var(--container-bg);
+            color: var(--text-color);
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #theme-toggle:hover {
+            background-color: var(--border-color);
+        }
+
+        /* Add styles for the logged-in view */
+        .logged-in-container {
+            background-color: var(--container-bg);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .user-avatar {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(45deg, var(--primary-color), var(--primary-hover));
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: white;
+            position: relative;
             overflow: hidden;
+        }
+
+        .user-avatar::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3Cpattern id='grid' width='10' height='10' patternUnits='userSpaceOnUse'%3E%3Cpath d='M 10 0 L 0 0 0 10' fill='none' stroke='rgba(255,255,255,0.1)' stroke-width='1'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='100' height='100' fill='url(%23grid)'/%3E%3C/svg%3E") center/cover;
+            opacity: 0.3;
+        }
+
+        .welcome-text {
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
+        .user-info {
+            color: var(--text-color);
+            opacity: 0.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .logout-btn {
+            background-color: transparent;
+            color: var(--text-color);
+            border: 2px solid var(--border-color);
+            padding: 0.75rem 2rem;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background-color: var(--border-color);
+            transform: translateY(-2px);
+        }
+
+        .session-info {
+            margin-top: 1rem;
+            font-size: 0.875rem;
+            color: var(--text-color);
+            opacity: 0.6;
+        }
+
+        /* Update error message styles */
+        .error-shake {
+            animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+        }
+
+        .login-form input.error {
+            border-color: #dc3545;
+            background-color: rgba(220, 53, 69, 0.1);
+        }
+
+        .error-message {
+            color: #dc3545;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .error-message::before {
+            content: "⚠️";
+        }
+
+        @keyframes shake {
+            10%, 90% { transform: translateX(-1px); }
+            20%, 80% { transform: translateX(2px); }
+            30%, 50%, 70% { transform: translateX(-4px); }
+            40%, 60% { transform: translateX(4px); }
         }
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <p class="login-header">Welcome Back</p>
-        <div class="login-form">
+    <button id="theme-toggle" aria-label="Toggle theme">
+        🌙
+    </button>
+    <div id="login-container">
+        <h1 class="login-header">Welcome Back</h1>
+        <form class="login-form" onsubmit="login(); return false;">
             <label>
-                <input type="text" name="username" placeholder="Username" required>
-                <input type="password" name="password" placeholder="Password" required>
+                <input type="text" name="username" placeholder="Username" required autocomplete="username">
             </label>
-            <button onclick="login()" value="Login">Login</button>
-        </div>
-        <!-- <p class="login-help">Don't have an account? <a href="#">Sign Up</a></p> -->
+            <label>
+                <input type="password" name="password" placeholder="Password" required autocomplete="current-password">
+            </label>
+            <button type="submit">Login</button>
+        </form>
     </div>
 
-    <div>
-        <p id="message"></p>
-    </div>
+    <div id="message"></div>
 
     <script>
         loginData = [
@@ -57,16 +305,225 @@
             },
         ];
 
+        // Session management
+        class SessionManager {
+            static setSession(username) {
+                try {
+                    const session = {
+                        username,
+                        timestamp: new Date().getTime(),
+                        expiresIn: 3600000 // 1 hour
+                    };
+                    localStorage.setItem('userSession', JSON.stringify(session));
+                } catch (error) {
+                    console.error('Error setting session:', error);
+                }
+            }
+
+            static getSession() {
+                try {
+                    const session = localStorage.getItem('userSession');
+                    if (!session) return null;
+
+                    const parsedSession = JSON.parse(session);
+                    const now = new Date().getTime();
+                    
+                    if (now - parsedSession.timestamp > parsedSession.expiresIn) {
+                        this.clearSession();
+                        return null;
+                    }
+
+                    return parsedSession;
+                } catch (error) {
+                    console.error('Error getting session:', error);
+                    return null;
+                }
+            }
+
+            static clearSession() {
+                try {
+                    localStorage.removeItem('userSession');
+                } catch (error) {
+                    console.error('Error clearing session:', error);
+                }
+            }
+        }
+
+        // Theme management
+        class ThemeManager {
+            static init() {
+                const savedTheme = localStorage.getItem('theme') || 'light';
+                this.setTheme(savedTheme);
+                this.setupThemeToggle();
+            }
+
+            static setTheme(theme) {
+                document.documentElement.setAttribute('data-theme', theme);
+                localStorage.setItem('theme', theme);
+                const toggleBtn = document.getElementById('theme-toggle');
+                toggleBtn.innerHTML = theme === 'dark' ? '☀️' : '🌙';
+            }
+
+            static setupThemeToggle() {
+                const toggleBtn = document.getElementById('theme-toggle');
+                toggleBtn.addEventListener('click', () => {
+                    const currentTheme = localStorage.getItem('theme') || 'light';
+                    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+                    this.setTheme(newTheme);
+                });
+            }
+        }
+
+        // Add new ProfileImageGenerator class
+        class ProfileImageGenerator {
+            static generateColors(username) {
+                // Generate a consistent color based on username
+                let hash = 0;
+                for (let i = 0; i < username.length; i++) {
+                    hash = username.charCodeAt(i) + ((hash << 5) - hash);
+                }
+
+                const h = Math.abs(hash % 360);
+                const s = 70 + (hash % 20); // 70-90%
+                const l = 45 + (hash % 10); // 45-55%
+
+                return {
+                    primary: `hsl(${h}, ${s}%, ${l}%)`,
+                    secondary: `hsl(${(h + 40) % 360}, ${s}%, ${l}%)`
+                };
+            }
+
+            static getInitials(username) {
+                return username
+                    .split(/[\s._-]/)
+                    .map(word => word[0])
+                    .join('')
+                    .toUpperCase()
+                    .slice(0, 2);
+            }
+
+            static updateAvatar(avatarElement, username) {
+                const colors = this.generateColors(username);
+                const initials = this.getInitials(username);
+                
+                avatarElement.style.background = `linear-gradient(45deg, ${colors.primary}, ${colors.secondary})`;
+                avatarElement.textContent = initials;
+            }
+        }
+
+        setup();
+
+        function setup() {
+            const container = document.getElementById('login-container');
+            const message = document.getElementById('message');
+            message.hidden = true;
+
+            // Initialize theme
+            ThemeManager.init();
+
+            // Check for existing session
+            const session = SessionManager.getSession();
+            if (session && session.username) {
+                postLogin(session.username);
+            } else {
+                container.hidden = false;
+            }
+        }
+
+        // Update login function with improved error handling
         function login() {
-            const username = document.querySelector('input[name="username"]').value;
-            const password = document.querySelector('input[name="password"]').value;
+            const usernameInput = document.querySelector('input[name="username"]');
+            const passwordInput = document.querySelector('input[name="password"]');
+            const form = document.querySelector('.login-form');
             const message = document.getElementById('message');
 
-            if (checkLogin(username, password)) {
-                message.textContent = 'Successfully logged in!';
+            // Remove existing error states
+            usernameInput.classList.remove('error');
+            passwordInput.classList.remove('error');
+            const existingError = form.querySelector('.error-message');
+            if (existingError) existingError.remove();
+
+            if (checkLogin(usernameInput.value, passwordInput.value)) {
+                SessionManager.setSession(usernameInput.value);
+                postLogin(usernameInput.value);
             } else {
-                message.textContent = 'Failed to log in!';
+                // Add shake animation
+                form.classList.add('error-shake');
+                
+                // Remove shake class after animation
+                setTimeout(() => form.classList.remove('error-shake'), 500);
+
+                // Add error styling to inputs
+                usernameInput.classList.add('error');
+                passwordInput.classList.add('error');
+
+                // Create and add error message
+                const errorMessage = document.createElement('div');
+                errorMessage.className = 'error-message';
+                errorMessage.textContent = 'Invalid username or password. Please try again.';
+                form.appendChild(errorMessage);
+
+                // Clear password field
+                passwordInput.value = '';
+                passwordInput.focus();
             }
+        }
+
+        // Update postLogin function to use ProfileImageGenerator
+        function postLogin(username) {
+            const form = document.getElementById('login-container');
+            const message = document.getElementById('message');
+            
+            // Create a new container for logged-in view
+            const loggedInContainer = document.createElement('div');
+            loggedInContainer.className = 'logged-in-container';
+            
+            // Create user avatar
+            const avatar = document.createElement('div');
+            avatar.className = 'user-avatar';
+            ProfileImageGenerator.updateAvatar(avatar, username);
+            
+            // Create welcome message
+            const welcomeText = document.createElement('h2');
+            welcomeText.className = 'welcome-text';
+            welcomeText.textContent = 'Welcome back!';
+            
+            // Create user info
+            const userInfo = document.createElement('p');
+            userInfo.className = 'user-info';
+            userInfo.textContent = `Logged in as ${username}`;
+            
+            // Create logout button
+            const logoutBtn = document.createElement('button');
+            logoutBtn.className = 'logout-btn';
+            logoutBtn.textContent = 'Sign Out';
+            logoutBtn.onclick = logout;
+            
+            // Create session info
+            const sessionInfo = document.createElement('p');
+            sessionInfo.className = 'session-info';
+            const sessionStart = new Date().toLocaleTimeString();
+            sessionInfo.textContent = `Session started at ${sessionStart}`;
+            
+            // Append all elements to the container
+            loggedInContainer.appendChild(avatar);
+            loggedInContainer.appendChild(welcomeText);
+            loggedInContainer.appendChild(userInfo);
+            loggedInContainer.appendChild(logoutBtn);
+            loggedInContainer.appendChild(sessionInfo);
+            
+            // Update the DOM
+            form.hidden = true;
+            message.hidden = true;
+            
+            // Remove any existing logged-in container
+            const existingContainer = document.querySelector('.logged-in-container');
+            if (existingContainer) {
+                existingContainer.remove();
+            }
+            
+            // Add the new container to the body
+            document.body.appendChild(loggedInContainer);
         }
 
         function checkLogin(username, password) {
@@ -77,6 +534,23 @@
                 }
             }
             return false;
+        }
+
+        // Add logout functionality
+        function logout() {
+            SessionManager.clearSession();
+            const container = document.getElementById('login-container');
+            const loggedInContainer = document.querySelector('.logged-in-container');
+            
+            if (loggedInContainer) {
+                loggedInContainer.remove();
+            }
+            
+            container.hidden = false;
+            
+            // Clear input fields
+            document.querySelector('input[name="username"]').value = '';
+            document.querySelector('input[name="password"]').value = '';
         }
     </script>
 </body>
