@@ -1168,6 +1168,167 @@
             font-size: 0.9rem;
             opacity: 0.6;
         }
+
+        /* Enhanced Error Popup Styles */
+        .error-popup {
+            transform: scale(0.95);
+            opacity: 0;
+            animation: popupIn 0.3s ease forwards;
+        }
+
+        @keyframes popupIn {
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .error-popup .credentials-popup-header {
+            background: linear-gradient(145deg, 
+                rgba(var(--error-color-rgb), 0.15),
+                rgba(var(--error-color-rgb), 0.1));
+            padding: 1.8rem 2rem;
+            margin: -2rem -2rem 1.5rem;
+            border-radius: 20px 20px 0 0;
+            text-align: center;
+            border-bottom: 1px solid rgba(var(--error-color-rgb), 0.2);
+        }
+
+        .error-popup .credentials-popup-header h3 {
+            color: var(--error-color);
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+        }
+
+        .error-popup .credentials-popup-content {
+            padding: 1.5rem;
+            text-align: center;
+            color: var(--text-color);
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+
+        .error-popup .error-message-container {
+            background: linear-gradient(145deg,
+                rgba(var(--error-color-rgb), 0.08),
+                rgba(var(--error-color-rgb), 0.05));
+            padding: 1.2rem;
+            border-radius: 12px;
+            margin: 1rem 0;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .error-popup .error-icon {
+            width: 32px;
+            height: 32px;
+            flex-shrink: 0;
+            background: linear-gradient(135deg,
+                rgba(var(--error-color-rgb), 0.2),
+                rgba(var(--error-color-rgb), 0.15));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--error-color);
+            font-size: 1.2rem;
+        }
+
+        .error-popup .error-text {
+            text-align: left;
+            color: var(--text-color);
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .error-popup .popup-close-btn {
+            background: linear-gradient(145deg,
+                rgba(var(--error-color-rgb), 0.15),
+                rgba(var(--error-color-rgb), 0.1));
+            color: var(--error-color);
+            width: 36px;
+            height: 36px;
+            top: 1.5rem;
+            right: 1.5rem;
+            font-size: 1.4rem;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+
+        .error-popup .popup-close-btn:hover {
+            opacity: 1;
+            transform: rotate(90deg);
+            background: linear-gradient(145deg,
+                rgba(var(--error-color-rgb), 0.2),
+                rgba(var(--error-color-rgb), 0.15));
+        }
+
+        /* Add a subtle shake animation for validation errors */
+        @keyframes errorShake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-4px); }
+            75% { transform: translateX(4px); }
+        }
+
+        .error-shake {
+            animation: errorShake 0.4s ease;
+        }
+
+        /* Enhanced inline error styles */
+        .register-form .error-message {
+            background: linear-gradient(145deg,
+                rgba(var(--error-color-rgb), 0.08),
+                rgba(var(--error-color-rgb), 0.05));
+            padding: 1rem 1.2rem;
+            border-radius: 12px;
+            margin-top: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            color: var(--error-color);
+            font-size: 0.95rem;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .register-form .error-message .error-icon {
+            width: 24px;
+            height: 24px;
+            flex-shrink: 0;
+            background: linear-gradient(135deg,
+                rgba(var(--error-color-rgb), 0.2),
+                rgba(var(--error-color-rgb), 0.15));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        .register-form .form-field.error input {
+            border-color: var(--error-color);
+            background: linear-gradient(145deg,
+                rgba(var(--error-color-rgb), 0.05),
+                rgba(var(--error-color-rgb), 0.02));
+        }
+
+        .register-form .form-field.error .field-icon {
+            color: var(--error-color);
+        }
     </style>
 </head>
 <body>
@@ -1369,7 +1530,55 @@
             }
         }
 
-        // Update the register function
+        function showErrorMessage(message) {
+            // Remove any existing error messages
+            const existingError = document.querySelector('.register-form .error-message');
+            if (existingError) {
+                existingError.remove();
+            }
+
+            // Create new error message
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'error-message';
+            errorDiv.innerHTML = `
+                <div class="error-icon">⚠️</div>
+                <div class="error-text">${message}</div>
+            `;
+
+            // Add error message after the last form field
+            const form = document.querySelector('.register-form');
+            const lastField = form.querySelector('.form-field:last-of-type');
+            lastField.after(errorDiv);
+
+            // Add error class to relevant form fields
+            const usernameField = form.querySelector('input[name="reg-username"]').closest('.form-field');
+            const passwordField = form.querySelector('input[name="reg-password"]').closest('.form-field');
+            const confirmPasswordField = form.querySelector('input[name="reg-confirm-password"]').closest('.form-field');
+
+            // Add shake animation to form
+            form.classList.add('error-shake');
+            setTimeout(() => form.classList.remove('error-shake'), 500);
+
+            // Add error styling based on the type of error
+            if (message.includes('Username')) {
+                usernameField.classList.add('error');
+            } else if (message.includes('Password')) {
+                passwordField.classList.add('error');
+                confirmPasswordField.classList.add('error');
+            }
+
+            // Remove error styling after 5 seconds
+            setTimeout(() => {
+                if (errorDiv.parentNode) {
+                    errorDiv.remove();
+                    usernameField.classList.remove('error');
+                    passwordField.classList.remove('error');
+                    confirmPasswordField.classList.remove('error');
+                }
+            }, 5000);
+        }
+
+        // Update the register function to use the new error display
         function register() {
             const username = document.querySelector('input[name="reg-username"]').value;
             const password = document.querySelector('input[name="reg-password"]').value;
@@ -1389,36 +1598,27 @@
                     errorMessage = 'Username must be at least 3 characters long.';
                 }
 
-                // Show error popup
-                showErrorPopup(errorMessage);
+                showErrorMessage(errorMessage);
                 return;
             }
 
             // Check if username already exists
             if (loginData.some(user => user.username === username)) {
-                showErrorPopup('Username already exists!');
+                showErrorMessage('Username already exists!');
                 return;
             }
 
-            // Create new user
+            // Rest of the registration logic...
             const newUser = { username, password };
-            
-            // Get existing users from localStorage or initialize empty array
             let storedUsers = JSON.parse(localStorage.getItem('registeredUsers')) || [];
-            
-            // Add new user
             storedUsers.push(newUser);
-            
-            // Update loginData array
             loginData.push(newUser);
-            
-            // Save to localStorage
             localStorage.setItem('registeredUsers', JSON.stringify(storedUsers));
 
-            // Show success message
+            // Show success message and redirect
             showSuccessPopup('Account created successfully!');
             
-            // Clear form and show login
+            // Clear form
             document.querySelector('input[name="reg-username"]').value = '';
             document.querySelector('input[name="reg-password"]').value = '';
             document.querySelector('input[name="reg-confirm-password"]').value = '';
@@ -1433,26 +1633,38 @@
         function showErrorPopup(message) {
             const overlay = document.createElement('div');
             overlay.className = 'popup-overlay';
-            overlay.style.zIndex = '2000';
-
+            
             const popup = document.createElement('div');
             popup.className = 'credentials-popup error-popup';
+            
+            // Create a more detailed error message structure
             popup.innerHTML = `
                 <button class="popup-close-btn" onclick="closePopup(this)">×</button>
-                <div class="credentials-popup-header" style="color: var(--error-color)">
-                    <h3>⚠️ Error</h3>
+                <div class="credentials-popup-header">
+                    <h3>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="8" x2="12" y2="12"></line>
+                            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                        </svg>
+                        Validation Error
+                    </h3>
                 </div>
-                <div style="padding: 1rem; text-align: center; color: var(--text-color)">
-                    ${message}
+                <div class="credentials-popup-content">
+                    <div class="error-message-container">
+                        <div class="error-icon">⚠️</div>
+                        <div class="error-text">${message}</div>
+                    </div>
                 </div>
             `;
 
             overlay.appendChild(popup);
             document.body.appendChild(overlay);
 
-            requestAnimationFrame(() => {
+            // Add visible class with slight delay for animation
+            setTimeout(() => {
                 overlay.classList.add('visible');
-            });
+            }, 10);
 
             // Close popup when clicking outside
             overlay.addEventListener('click', (e) => {
@@ -1460,6 +1672,22 @@
                     closePopup(popup);
                 }
             });
+
+            // Add keyboard support for closing
+            const escHandler = (e) => {
+                if (e.key === 'Escape') {
+                    closePopup(popup);
+                    document.removeEventListener('keydown', escHandler);
+                }
+            };
+            document.addEventListener('keydown', escHandler);
+
+            // Auto-close after 5 seconds
+            setTimeout(() => {
+                if (document.body.contains(overlay)) {
+                    closePopup(popup);
+                }
+            }, 5000);
         }
 
         function showSuccessPopup(message) {
@@ -1494,10 +1722,12 @@
 
         function closePopup(element) {
             const overlay = element.closest('.popup-overlay');
-            overlay.classList.remove('visible');
-            setTimeout(() => {
-                overlay.remove();
-            }, 300);
+            if (overlay) {
+                overlay.classList.remove('visible');
+                overlay.addEventListener('transitionend', () => {
+                    overlay.remove();
+                }, { once: true });
+            }
         }
 
         // Session management
