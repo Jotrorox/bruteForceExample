@@ -1466,12 +1466,19 @@
             color: var(--text-color);
             font-size: 0.9rem;
             transition: all 0.3s ease;
+            cursor: pointer;
         }
 
         .bruteforce-input:focus {
             border-color: var(--primary-color);
             box-shadow: 0 0 0 2px rgba(var(--primary-color-rgb), 0.1);
             outline: none;
+        }
+
+        .bruteforce-input option {
+            background: var(--container-bg);
+            color: var(--text-color);
+            padding: 8px;
         }
 
         .bruteforce-button {
@@ -3109,8 +3116,10 @@
                     </div>
                     <div class="bruteforce-content">
                         <div class="bruteforce-controls">
-                            <input type="text" class="bruteforce-input" id="target-username" 
-                                   placeholder="Enter target username">
+                            <select class="bruteforce-input" id="target-username">
+                                <option value="">Select target user</option>
+                                ${loginData.map(user => `<option value="${user.username}">${user.username}</option>`).join('')}
+                            </select>
                             <div class="speed-control">
                                 <label for="attack-speed">Attack Speed:</label>
                                 <div class="speed-input-group">
@@ -3187,6 +3196,13 @@
                 overlay.appendChild(popup);
                 document.body.appendChild(overlay);
                 
+                // Update the select element with current users
+                const userSelect = popup.querySelector('#target-username');
+                userSelect.innerHTML = `
+                    <option value="">Select target user</option>
+                    ${loginData.map(user => `<option value="${user.username}">${user.username}</option>`).join('')}
+                `;
+                
                 // Add event listeners
                 const startBtn = popup.querySelector('#start-bruteforce');
                 startBtn.addEventListener('click', () => this.toggleBruteforce(startBtn));
@@ -3222,7 +3238,7 @@
 
                 this.targetUsername = document.getElementById('target-username').value;
                 if (!this.targetUsername) {
-                    this.addLogEntry('Please enter a target username', 'error');
+                    this.addLogEntry('Please select a target username', 'error');
                     return;
                 }
 
