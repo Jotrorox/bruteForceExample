@@ -272,11 +272,156 @@
             30%, 50%, 70% { transform: translateX(-4px); }
             40%, 60% { transform: translateX(4px); }
         }
+
+        .hint-btn {
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+            padding: 0.5rem;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            border: none;
+            background-color: var(--primary-color);
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .hint-btn:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1001;
+            opacity: 0;
+            transition: opacity 0.2s ease-in-out;
+        }
+
+        .popup-overlay.visible {
+            opacity: 1;
+        }
+
+        .credentials-popup {
+            background-color: var(--container-bg);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+            width: 90%;
+            max-width: 350px;
+            transform: scale(0.95);
+            transition: transform 0.3s ease-in-out;
+            position: relative;
+            border: 1px solid var(--border-color);
+        }
+
+        .popup-overlay.visible .credentials-popup {
+            transform: scale(1);
+        }
+
+        .credentials-popup-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-color);
+        }
+
+        .credentials-popup-header h3 {
+            margin: 0;
+            font-size: 1.4rem;
+            font-weight: 500;
+        }
+
+        .credential-item {
+            padding: 1.2rem;
+            margin: 0.8rem 0;
+            cursor: pointer;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid transparent;
+        }
+
+        .credential-item:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .credential-item .username {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .credential-item .password {
+            opacity: 0.9;
+            font-family: monospace;
+            font-size: 1rem;
+            padding: 0.3rem 0.6rem;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+        }
+
+        .credential-item:hover .password {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .close-popup {
+            position: absolute;
+            top: 1.2rem;
+            right: 1.2rem;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            cursor: pointer;
+            font-size: 1.5rem;
+            padding: 0.4rem;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .close-popup:hover {
+            background-color: var(--border-color);
+            transform: rotate(90deg);
+        }
     </style>
 </head>
 <body>
     <button id="theme-toggle" aria-label="Toggle theme">
         🌙
+    </button>
+    <button class="hint-btn" id="hint-btn" aria-label="Show login hints">
+        💡
     </button>
     <div id="login-container">
         <h1 class="login-header">Welcome Back</h1>
@@ -411,6 +556,94 @@
             }
         }
 
+        // Add this before setup()
+        class HintManager {
+            static init() {
+                const hintBtn = document.getElementById('hint-btn');
+                
+                hintBtn.addEventListener('click', () => {
+                    const existingOverlay = document.querySelector('.popup-overlay');
+                    if (existingOverlay) {
+                        this.closePopup(existingOverlay);
+                        return;
+                    }
+
+                    const overlay = document.createElement('div');
+                    overlay.className = 'popup-overlay';
+
+                    const popup = document.createElement('div');
+                    popup.className = 'credentials-popup';
+
+                    // Add header with lock icon
+                    const header = document.createElement('div');
+                    header.className = 'credentials-popup-header';
+                    header.innerHTML = '<h3>🔐 Available Logins</h3>';
+                    popup.appendChild(header);
+
+                    // Add close button
+                    const closeBtn = document.createElement('button');
+                    closeBtn.className = 'close-popup';
+                    closeBtn.innerHTML = '×';
+                    closeBtn.addEventListener('click', () => this.closePopup(overlay));
+                    popup.appendChild(closeBtn);
+
+                    loginData.forEach(cred => {
+                        const credItem = document.createElement('div');
+                        credItem.className = 'credential-item';
+                        credItem.innerHTML = `
+                            <span class="username">👤 ${cred.username}</span>
+                            <span class="password">${cred.password}</span>
+                        `;
+                        credItem.addEventListener('click', () => {
+                            const usernameInput = document.querySelector('input[name="username"]');
+                            const passwordInput = document.querySelector('input[name="password"]');
+                            usernameInput.value = cred.username;
+                            passwordInput.value = cred.password;
+                            this.closePopup(overlay);
+                        });
+                        popup.appendChild(credItem);
+                    });
+
+                    overlay.appendChild(popup);
+                    document.body.appendChild(overlay);
+
+                    // Trigger animation
+                    requestAnimationFrame(() => {
+                        overlay.classList.add('visible');
+                    });
+
+                    // Close popup when clicking outside
+                    overlay.addEventListener('click', (e) => {
+                        if (e.target === overlay) {
+                            this.closePopup(overlay);
+                        }
+                    });
+
+                    // Prevent closing when clicking inside popup
+                    popup.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                    });
+
+                    // Add keyboard support for closing
+                    document.addEventListener('keydown', (e) => {
+                        if (e.key === 'Escape') {
+                            const activeOverlay = document.querySelector('.popup-overlay');
+                            if (activeOverlay) {
+                                this.closePopup(activeOverlay);
+                            }
+                        }
+                    });
+                });
+            }
+
+            static closePopup(overlay) {
+                overlay.classList.remove('visible');
+                setTimeout(() => {
+                    overlay.remove();
+                }, 300); // Increased duration to match transition
+            }
+        }
+
         setup();
 
         function setup() {
@@ -420,6 +653,8 @@
 
             // Initialize theme
             ThemeManager.init();
+            // Initialize hints
+            HintManager.init();
 
             // Check for existing session
             const session = SessionManager.getSession();
