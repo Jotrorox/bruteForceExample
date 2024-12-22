@@ -402,34 +402,66 @@
         }
 
         .credentials-popup {
-            background-color: var(--container-bg);
-            border-radius: 20px;
-            padding: 2rem;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
-            width: 90%;
-            max-width: 350px;
-            transform: scale(0.95);
-            transition: transform 0.3s ease-in-out;
             position: relative;
-            border: 1px solid var(--border-color);
+            max-width: 400px;
+            width: 90%;
+            padding: 1.5rem;
+            border-radius: 16px;
+            background: linear-gradient(145deg, 
+                rgba(var(--container-bg-rgb), 0.95),
+                rgba(var(--container-bg-rgb), 0.85));
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
         }
 
         .popup-overlay.visible .credentials-popup {
-            transform: scale(1);
+            transform: translateY(0);
         }
 
         .credentials-popup-header {
             text-align: center;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
             padding-bottom: 1rem;
             border-bottom: 1px solid var(--border-color);
-            color: var(--text-color);
         }
 
         .credentials-popup-header h3 {
-            margin: 0;
             font-size: 1.4rem;
-            font-weight: 500;
+            font-weight: 600;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .popup-close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 1.5rem;
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            opacity: 0.7;
+        }
+
+        .popup-close-btn:hover {
+            opacity: 1;
+            background-color: var(--border-color);
+            transform: rotate(90deg);
         }
 
         .credential-item {
@@ -1048,6 +1080,94 @@
         .input-wrapper input {
             padding: 1rem 3rem 1rem 3rem !important;
         }
+
+        .error-popup .credentials-popup-header {
+            border-bottom-color: var(--error-color);
+        }
+
+        .success-popup .credentials-popup-header {
+            border-bottom-color: var(--success-color);
+        }
+
+        .popup-overlay {
+            z-index: 2000;
+        }
+
+        .credentials-popup button {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .credentials-popup button:hover {
+            background-color: var(--primary-hover);
+        }
+
+        /* Improved logged-in container styles */
+        .logged-in-container {
+            background: linear-gradient(145deg, 
+                rgba(var(--container-bg-rgb), 0.95),
+                rgba(var(--container-bg-rgb), 0.85));
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 3rem !important;
+        }
+
+        .user-info-container {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: linear-gradient(145deg, 
+                rgba(var(--bg-color-rgb), 0.5),
+                rgba(var(--bg-color-rgb), 0.3));
+            border-radius: 12px;
+            text-align: left;
+        }
+
+        .user-info-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 0.8rem 0;
+            opacity: 0.8;
+        }
+
+        .user-info-item svg {
+            width: 18px;
+            height: 18px;
+            stroke: currentColor;
+        }
+
+        .logout-btn {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+            color: white;
+            border: none;
+            padding: 1rem 2.5rem;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(var(--primary-color-rgb), 0.2);
+        }
+
+        .logout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(var(--primary-color-rgb), 0.3);
+        }
+
+        .session-info {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.9rem;
+            opacity: 0.6;
+        }
     </style>
 </head>
 <body>
@@ -1186,6 +1306,7 @@
         }
 
         function validateRegistration() {
+            const username = document.querySelector('input[name="reg-username"]').value;
             const password = document.querySelector('input[name="reg-password"]').value;
             const confirmPassword = document.querySelector('input[name="reg-confirm-password"]').value;
             const strengthBar = document.querySelector('.strength-bar');
@@ -1213,12 +1334,20 @@
             }
 
             // Check if passwords match
-            const requirements = {
-                strength: strength >= 2, // Require at least medium strength
-                match: password === confirmPassword && password.length > 0
-            };
+            if (password !== confirmPassword) {
+                passwordStatus.textContent = 'Passwords do not match';
+                passwordStatus.style.color = 'var(--error-color)';
+                return false;
+            } else {
+                passwordStatus.style.color = 'var(--text-color)';
+            }
 
-            return Object.values(requirements).every(Boolean);
+            // Return true only if all requirements are met
+            return {
+                isValid: strength >= 2 && password === confirmPassword && username.length >= 3,
+                strength: strength,
+                passwordsMatch: password === confirmPassword
+            };
         }
 
         function togglePassword(button) {
@@ -1244,62 +1373,131 @@
         function register() {
             const username = document.querySelector('input[name="reg-username"]').value;
             const password = document.querySelector('input[name="reg-password"]').value;
-            const form = document.querySelector('#register-container .login-form');
+            const confirmPassword = document.querySelector('input[name="reg-confirm-password"]').value;
 
-            // Remove existing error messages
-            const existingError = form.querySelector('.error-message');
-            if (existingError) existingError.remove();
+            // Validate registration
+            const validation = validateRegistration();
+            
+            if (!validation.isValid) {
+                let errorMessage = '';
+                
+                if (!validation.passwordsMatch) {
+                    errorMessage = 'Passwords do not match!';
+                } else if (validation.strength < 2) {
+                    errorMessage = 'Password is too weak. Please include numbers and special characters.';
+                } else if (username.length < 3) {
+                    errorMessage = 'Username must be at least 3 characters long.';
+                }
 
-            // Validate all requirements
-            if (!validateRegistration()) {
-                showRegistrationError("Please meet all password requirements");
-                return;
-            }
-
-            // Check username length
-            if (username.length < 3) {
-                showRegistrationError("Username must be at least 3 characters long");
+                // Show error popup
+                showErrorPopup(errorMessage);
                 return;
             }
 
             // Check if username already exists
             if (loginData.some(user => user.username === username)) {
-                showRegistrationError("Username already exists");
+                showErrorPopup('Username already exists!');
                 return;
             }
 
             // Create new user
             const newUser = { username, password };
+            
+            // Get existing users from localStorage or initialize empty array
+            let storedUsers = JSON.parse(localStorage.getItem('registeredUsers')) || [];
+            
+            // Add new user
             storedUsers.push(newUser);
+            
+            // Update loginData array
             loginData.push(newUser);
-
+            
             // Save to localStorage
             localStorage.setItem('registeredUsers', JSON.stringify(storedUsers));
 
-            // Show success message and redirect to login
-            const message = document.getElementById('message');
-            message.className = 'success';
-            message.textContent = 'Registration successful! Please login.';
-            message.hidden = false;
-
+            // Show success message
+            showSuccessPopup('Account created successfully!');
+            
             // Clear form and show login
-            form.reset();
-            showLoginForm();
-
-            // Hide success message after 3 seconds
+            document.querySelector('input[name="reg-username"]').value = '';
+            document.querySelector('input[name="reg-password"]').value = '';
+            document.querySelector('input[name="reg-confirm-password"]').value = '';
+            
+            // Return to login form after short delay
             setTimeout(() => {
-                message.hidden = true;
-            }, 3000);
+                showLoginForm();
+            }, 1500);
         }
 
-        function showRegistrationError(errorMessage) {
-            const form = document.querySelector('#register-container .login-form');
-            const errorDiv = document.createElement('div');
-            errorDiv.className = 'error-message';
-            errorDiv.textContent = errorMessage;
-            form.appendChild(errorDiv);
-            form.classList.add('error-shake');
-            setTimeout(() => form.classList.remove('error-shake'), 500);
+        // Add these new functions for popup messages
+        function showErrorPopup(message) {
+            const overlay = document.createElement('div');
+            overlay.className = 'popup-overlay';
+            overlay.style.zIndex = '2000';
+
+            const popup = document.createElement('div');
+            popup.className = 'credentials-popup error-popup';
+            popup.innerHTML = `
+                <button class="popup-close-btn" onclick="closePopup(this)">×</button>
+                <div class="credentials-popup-header" style="color: var(--error-color)">
+                    <h3>⚠️ Error</h3>
+                </div>
+                <div style="padding: 1rem; text-align: center; color: var(--text-color)">
+                    ${message}
+                </div>
+            `;
+
+            overlay.appendChild(popup);
+            document.body.appendChild(overlay);
+
+            requestAnimationFrame(() => {
+                overlay.classList.add('visible');
+            });
+
+            // Close popup when clicking outside
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    closePopup(popup);
+                }
+            });
+        }
+
+        function showSuccessPopup(message) {
+            const overlay = document.createElement('div');
+            overlay.className = 'popup-overlay';
+            overlay.style.zIndex = '2000';
+
+            const popup = document.createElement('div');
+            popup.className = 'credentials-popup success-popup';
+            popup.innerHTML = `
+                <button class="popup-close-btn" onclick="closePopup(this)">×</button>
+                <div class="credentials-popup-header" style="color: var(--success-color)">
+                    <h3>✅ Success</h3>
+                </div>
+                <div style="padding: 1rem; text-align: center; color: var(--text-color)">
+                    ${message}
+                </div>
+            `;
+
+            overlay.appendChild(popup);
+            document.body.appendChild(overlay);
+
+            requestAnimationFrame(() => {
+                overlay.classList.add('visible');
+            });
+
+            // Auto close success popup after 1.5 seconds
+            setTimeout(() => {
+                closePopup(popup);
+            }, 1500);
+        }
+
+        function closePopup(element) {
+            const overlay = element.closest('.popup-overlay');
+            overlay.classList.remove('visible');
+            setTimeout(() => {
+                overlay.remove();
+            }, 300);
         }
 
         // Session management
@@ -1584,16 +1782,43 @@
             const welcomeText = document.createElement('h2');
             welcomeText.className = 'welcome-text';
             welcomeText.textContent = `Welcome back, ${username}!`;
+
+            const userInfoContainer = document.createElement('div');
+            userInfoContainer.className = 'user-info-container';
+            userInfoContainer.innerHTML = `
+                <div class="user-info-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                        <circle cx="12" cy="7" r="4"/>
+                    </svg>
+                    <span>Username: ${username}</span>
+                </div>
+                <div class="user-info-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                    </svg>
+                    <span>Last login: ${new Date().toLocaleString()}</span>
+                </div>
+            `;
             
             const logoutBtn = document.createElement('button');
             logoutBtn.className = 'logout-btn';
-            logoutBtn.textContent = 'Sign Out';
+            logoutBtn.innerHTML = `
+                <span>Sign Out</span>
+            `;
             logoutBtn.onclick = logout;
+
+            const sessionInfo = document.createElement('div');
+            sessionInfo.className = 'session-info';
+            sessionInfo.textContent = 'Session expires in 1 hour';
             
             // Add elements to container
             loggedInContainer.appendChild(avatar);
             loggedInContainer.appendChild(welcomeText);
+            loggedInContainer.appendChild(userInfoContainer);
             loggedInContainer.appendChild(logoutBtn);
+            loggedInContainer.appendChild(sessionInfo);
             
             // Add container to wrapper
             document.querySelector('.container-wrapper').appendChild(loggedInContainer);
