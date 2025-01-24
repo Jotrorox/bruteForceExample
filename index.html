@@ -6,6 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="description" content="This website poses a way to explain bruteforcing and it's risks to classes and people new to the topic. It does all of that in an educational manner, by simulating requests, user login and registrations on the client using JavaScript. And also provides a modern UI to showcase the topic.">
+    <meta name="keywords" content="bruteforce, bruteforcing, bruteforce attack, bruteforce example, bruteforce simulation, bruteforce risks, bruteforce educational, bruteforce tutorial">
+    <meta name="author" content="Johannes (Jotrorox) Müller & Lara">
+    <meta name="robots" content="index, follow">
+    <meta name="revisit-after" content="7 days">
+    <meta name="language" content="English">
 
     <title>Brute Force Example</title>
 
@@ -57,8 +63,8 @@
         body {
             font-family: 'Ubuntu', sans-serif;
             min-height: 100vh;
-            background: linear-gradient(135deg, 
-                var(--bg-color), 
+            background: linear-gradient(135deg,
+                var(--bg-color),
                 color-mix(in srgb, var(--bg-color) 80%, var(--primary-color)));
             color: var(--text-color);
             display: flex;
@@ -94,7 +100,7 @@
             transform: translateY(0);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
-            background: linear-gradient(145deg, 
+            background: linear-gradient(145deg,
                 rgba(var(--container-bg-rgb), 0.95),
                 rgba(var(--container-bg-rgb), 0.85));
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -257,7 +263,6 @@
             background-color: var(--border-color);
         }
 
-        /* Add styles for the logged-in view */
         .logged-in-container {
             background-color: var(--container-bg);
             padding: 2rem;
@@ -329,7 +334,6 @@
             opacity: 0.6;
         }
 
-        /* Update error message styles */
         .error-shake {
             animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
         }
@@ -413,7 +417,7 @@
             width: 90%;
             padding: 1.5rem;
             border-radius: 16px;
-            background: linear-gradient(145deg, 
+            background: linear-gradient(145deg,
                 rgba(var(--container-bg-rgb), 0.95),
                 rgba(var(--container-bg-rgb), 0.85));
             backdrop-filter: blur(10px);
@@ -572,7 +576,6 @@
             opacity: 1;
         }
 
-        /* Add/update these styles */
         .register-container {
             padding: 3rem 2.5rem !important;
         }
@@ -595,7 +598,6 @@
             font-weight: 500;
         }
 
-        /* Style for input groups */
         .input-group {
             position: relative;
             margin-bottom: 1.5rem;
@@ -619,12 +621,11 @@
             background-color: var(--input-bg) !important;
         }
 
-        /* Update password requirements styling */
         .password-requirements {
             margin: 1.5rem 0;
             padding: 1.5rem !important;
             border-radius: 15px;
-            background: linear-gradient(145deg, 
+            background: linear-gradient(145deg,
                 rgba(var(--bg-color-rgb), 0.5),
                 rgba(var(--bg-color-rgb), 0.3)) !important;
         }
@@ -655,7 +656,6 @@
             color: var(--success-color);
         }
 
-        /* Update password toggle button */
         .password-toggle {
             position: absolute;
             right: 1rem;
@@ -676,7 +676,6 @@
             background-color: var(--bg-color);
         }
 
-        /* Update back button */
         .back-to-login {
             position: absolute;
             top: 1.5rem;
@@ -686,7 +685,7 @@
             gap: 0.5rem;
             padding: 0.6rem 1rem;
             border-radius: 25px;
-            background: linear-gradient(145deg, 
+            background: linear-gradient(145deg,
                 rgba(var(--bg-color-rgb), 0.7),
                 rgba(var(--bg-color-rgb), 0.5));
             backdrop-filter: blur(4px);
@@ -698,7 +697,7 @@
 
         .back-to-login:hover {
             transform: translateX(-2px);
-            background: linear-gradient(145deg, 
+            background: linear-gradient(145deg,
                 rgba(var(--primary-color-rgb), 0.1),
                 rgba(var(--primary-color-rgb), 0.05));
         }
@@ -742,7 +741,7 @@
         }
 
         .password-requirements {
-            background: linear-gradient(145deg, 
+            background: linear-gradient(145deg,
                 rgba(var(--bg-color-rgb), 0.7),
                 rgba(var(--bg-color-rgb), 0.5));
             backdrop-filter: blur(4px);
@@ -765,7 +764,7 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(45deg, 
+            background: linear-gradient(45deg,
                 rgba(255, 255, 255, 0.1),
                 rgba(255, 255, 255, 0.2));
             border-radius: inherit;
@@ -782,7 +781,7 @@
         }
 
         .logout-btn {
-            background: linear-gradient(145deg, 
+            background: linear-gradient(145deg,
                 rgba(var(--bg-color-rgb), 0.7),
                 rgba(var(--bg-color-rgb), 0.5));
             backdrop-filter: blur(4px);
@@ -798,10 +797,9 @@
             border-color: transparent;
         }
 
-        /* Update/add these styles for the register container */
         .register-container {
             padding: 2.5rem !important;
-            background: linear-gradient(145deg, 
+            background: linear-gradient(145deg,
                 rgba(var(--container-bg-rgb), 0.95),
                 rgba(var(--container-bg-rgb), 0.85)) !important;
         }
@@ -827,7 +825,6 @@
             font-size: 1rem;
         }
 
-        /* New form styles */
         .register-form {
             display: flex;
             flex-direction: column;
@@ -870,7 +867,6 @@
             color: var(--primary-color);
         }
 
-        /* Special styling for the password toggle icon */
         .password-toggle {
             position: absolute;
             right: 1rem;
@@ -893,7 +889,6 @@
             background-color: var(--bg-color);
         }
 
-        /* Add icon styles */
         .icon-wrapper {
             display: flex;
             align-items: center;
@@ -902,7 +897,6 @@
             height: 1.5rem;
         }
 
-        /* Password requirements */
         .password-requirements {
             background: rgba(var(--bg-color-rgb), 0.5);
             border-radius: 12px;
@@ -940,7 +934,6 @@
             font-size: 1rem;
         }
 
-        /* Back button */
         .back-button {
             position: absolute;
             top: 1.5rem;
@@ -962,7 +955,6 @@
             transform: translateX(-3px);
         }
 
-        /* Submit button */
         .register-submit {
             background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
             color: white;
@@ -981,7 +973,6 @@
             box-shadow: 0 4px 12px rgba(var(--primary-color-rgb), 0.3);
         }
 
-        /* Add these styles for the password strength bar */
         .password-strength {
             width: 100%;
             height: 4px;
@@ -1014,7 +1005,6 @@
             background: #10b981;
         }
 
-        /* Update register container spacing */
         .register-container {
             padding: 3.5rem 2.5rem 2.5rem !important;
         }
@@ -1049,7 +1039,6 @@
             transition: all 0.3s ease;
         }
 
-        /* Update the input-wrapper and field-icon styles */
         .input-wrapper {
             position: relative;
             display: flex;
@@ -1074,14 +1063,12 @@
             transform: translateY(-50%);
         }
 
-        /* Update password field container styles */
         .password-field-container {
             display: flex;
             flex-direction: column;
             width: 100%;
         }
 
-        /* Ensure consistent input padding */
         .form-field input,
         .input-wrapper input {
             padding: 1rem 3rem 1rem 3rem !important;
@@ -1114,9 +1101,8 @@
             background-color: var(--primary-hover);
         }
 
-        /* Improved logged-in container styles */
         .logged-in-container {
-            background: linear-gradient(145deg, 
+            background: linear-gradient(145deg,
                 rgba(var(--container-bg-rgb), 0.95),
                 rgba(var(--container-bg-rgb), 0.85));
             backdrop-filter: blur(10px);
@@ -1128,7 +1114,7 @@
         .user-info-container {
             margin: 2rem 0;
             padding: 1.5rem;
-            background: linear-gradient(145deg, 
+            background: linear-gradient(145deg,
                 rgba(var(--bg-color-rgb), 0.5),
                 rgba(var(--bg-color-rgb), 0.3));
             border-radius: 12px;
@@ -1175,7 +1161,6 @@
             opacity: 0.6;
         }
 
-        /* Enhanced Error Popup Styles */
         .error-popup {
             transform: scale(0.95);
             opacity: 0;
@@ -1190,7 +1175,7 @@
         }
 
         .error-popup .credentials-popup-header {
-            background: linear-gradient(145deg, 
+            background: linear-gradient(145deg,
                 rgba(var(--error-color-rgb), 0.15),
                 rgba(var(--error-color-rgb), 0.1));
             padding: 1.8rem 2rem;
@@ -1273,7 +1258,6 @@
                 rgba(var(--error-color-rgb), 0.15));
         }
 
-        /* Add a subtle shake animation for validation errors */
         @keyframes errorShake {
             0%, 100% { transform: translateX(0); }
             25% { transform: translateX(-4px); }
@@ -1284,7 +1268,6 @@
             animation: errorShake 0.4s ease;
         }
 
-        /* Enhanced inline error styles */
         .register-form .error-message {
             background: linear-gradient(145deg,
                 rgba(var(--error-color-rgb), 0.08),
@@ -1336,7 +1319,6 @@
             color: var(--error-color);
         }
 
-        /* Add these new styles */
         .background-animation {
             position: fixed;
             top: 0;
@@ -1352,7 +1334,7 @@
             width: 100px;
             height: 100px;
             border-radius: 50%;
-            background: linear-gradient(135deg, 
+            background: linear-gradient(135deg,
                 rgba(var(--primary-color-rgb), 0.1),
                 rgba(var(--primary-color-rgb), 0.05));
             animation: float 20s infinite linear;
@@ -1398,7 +1380,6 @@
             }
         }
 
-        /* Add styles for the brute force button */
         .bruteforce-btn {
             position: fixed;
             bottom: 1rem;
@@ -1426,7 +1407,6 @@
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
         }
 
-        /* Styles for the brute force popup */
         .bruteforce-popup {
             max-width: 600px !important;
             width: 95% !important;
@@ -1435,7 +1415,7 @@
         }
 
         .bruteforce-header {
-            background: linear-gradient(145deg, 
+            background: linear-gradient(145deg,
                 rgba(var(--primary-color-rgb), 0.15),
                 rgba(var(--primary-color-rgb), 0.1));
             padding: 1.5rem;
@@ -1446,7 +1426,6 @@
             padding: 1.5rem;
         }
 
-        /* Update the bruteforce-controls styles */
         .bruteforce-controls {
             display: flex;
             gap: 0.8rem;
@@ -1559,7 +1538,6 @@
             opacity: 0.8;
         }
 
-        /* Password Lists Section Styles */
         .password-lists-section {
             margin-bottom: 1.5rem;
             background: linear-gradient(145deg,
@@ -1722,7 +1700,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Update existing bruteforce-popup styles */
         .bruteforce-popup {
             max-width: 800px !important;
         }
@@ -1732,7 +1709,6 @@
             overflow-y: auto;
         }
 
-        /* Custom Scrollbar Styles */
         ::-webkit-scrollbar {
             width: 8px;
             height: 8px;
@@ -1744,8 +1720,8 @@
         }
 
         ::-webkit-scrollbar-thumb {
-            background: linear-gradient(135deg, 
-                var(--primary-color), 
+            background: linear-gradient(135deg,
+                var(--primary-color),
                 var(--primary-hover));
             border-radius: 4px;
             transition: all 0.3s ease;
@@ -1755,7 +1731,6 @@
             background: var(--primary-hover);
         }
 
-        /* Enhanced Statistics Styles */
         .bruteforce-stats {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -1800,7 +1775,6 @@
             font-weight: 500;
         }
 
-        /* File Upload Styles */
         .file-upload-section {
             margin: 1.5rem 0;
             padding: 1.5rem;
@@ -1874,7 +1848,6 @@
             opacity: 0.7;
         }
 
-        /* Progress bar styles */
         .progress-bar {
             height: 4px;
             background: var(--border-color);
@@ -1896,7 +1869,6 @@
             transition: width 0.3s ease;
         }
 
-        /* Update lists-header to accommodate multiple buttons */
         .lists-header {
             display: flex;
             justify-content: space-between;
@@ -2029,7 +2001,6 @@
             margin-left: auto;
         }
 
-        /* Update the speed control styles */
         .speed-control {
             display: flex;
             align-items: center;
@@ -2065,7 +2036,6 @@
             text-align: center;
         }
 
-        /* Update the log entry styles */
         .log-entry {
             display: flex;
             align-items: center;
@@ -2111,7 +2081,6 @@
             white-space: nowrap;
         }
 
-        /* Update the log entry styles */
         .bruteforce-log {
             font-size: 0.9rem;
             line-height: 1.4;
@@ -2138,7 +2107,7 @@
         }
 
         .snake-game-container {
-            background: linear-gradient(145deg, 
+            background: linear-gradient(145deg,
                 rgba(var(--container-bg-rgb), 0.95),
                 rgba(var(--container-bg-rgb), 0.85));
             border-radius: 24px;
@@ -2356,7 +2325,6 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
-        /* Add touch instructions for mobile */
         .touch-instructions {
             display: none;
             text-align: center;
@@ -2375,9 +2343,9 @@
             .touch-instructions {
                 display: block;
             }
-            
+
             .snake-controls-guide {
-                display: none; /* Hide keyboard controls on mobile */
+                display: none;
             }
         }
     </style>
@@ -2402,7 +2370,7 @@
     <button class="bruteforce-btn" id="bruteforce-btn" aria-label="Try Brute Force Demo">
         🔓
     </button>
-    
+
     <div class="container-wrapper">
         <div id="login-container">
             <h1 class="login-header">Welcome Back</h1>
@@ -2430,11 +2398,11 @@
             </div>
             <form class="register-form" onsubmit="register(); return false;">
                 <div class="form-field">
-                    <input type="text" 
-                           name="reg-username" 
-                           placeholder="Username" 
-                           required 
-                           minlength="3" 
+                    <input type="text"
+                           name="reg-username"
+                           placeholder="Username"
+                           required
+                           minlength="3"
                            onkeyup="validateRegistration()">
                     <div class="field-icon">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -2443,14 +2411,14 @@
                         </svg>
                     </div>
                 </div>
-                
+
                 <div class="form-field">
                     <div class="password-field-container">
                         <div class="input-wrapper">
-                            <input type="password" 
-                                   name="reg-password" 
-                                   placeholder="Password" 
-                                   required 
+                            <input type="password"
+                                   name="reg-password"
+                                   placeholder="Password"
+                                   required
                                    onkeyup="validateRegistration()">
                             <div class="field-icon">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -2458,7 +2426,7 @@
                                     <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
                                 </svg>
                             </div>
-                            <button type="button" class="password-toggle" onclick="togglePassword(this)">
+                            <button type="button" class="password-toggle" onclick="togglePassword(this)" aria-label="Toggle Password visibility">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                     <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
                                     <circle cx="12" cy="12" r="3"/>
@@ -2471,12 +2439,12 @@
                         <div class="password-status">Password strength</div>
                     </div>
                 </div>
-                
+
                 <div class="form-field">
-                    <input type="password" 
-                           name="reg-confirm-password" 
-                           placeholder="Confirm password" 
-                           required 
+                    <input type="password"
+                           name="reg-confirm-password"
+                           placeholder="Confirm password"
+                           required
                            onkeyup="validateRegistration()">
                     <div class="field-icon">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -2484,7 +2452,7 @@
                             <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
                         </svg>
                     </div>
-                    <button type="button" class="password-toggle" onclick="togglePassword(this)">
+                    <button type="button" class="password-toggle" onclick="togglePassword(this)" aria-label="Toggle Password visibility">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
                             <circle cx="12" cy="12" r="3"/>
@@ -2499,15 +2467,13 @@
 
     <div id="message"></div>
 
-    <!-- Update the snake game overlay HTML structure (find the snake-game-overlay div and replace it) -->
     <div class="snake-game-overlay" style="display: none;">
         <div class="snake-game-container">
             <div class="snake-game-header">
                 <h3>🐍 Snake Game</h3>
                 <button class="popup-close-btn" onclick="closeSnakeGame()">×</button>
             </div>
-            
-            <!-- Add game screens -->
+
             <div id="snake-start-screen" class="snake-screen">
                 <h2>Snake Game</h2>
                 <p>Use arrow keys to control the snake</p>
@@ -2556,11 +2522,9 @@
             },
         ];
 
-        // Load stored users from localStorage
         let storedUsers = JSON.parse(localStorage.getItem('registeredUsers')) || [];
         loginData = [...loginData, ...storedUsers];
 
-        // Add these functions before setup()
         function showRegisterForm() {
             const loginContainer = document.getElementById('login-container');
             const registerContainer = document.getElementById('register-container');
@@ -2582,13 +2546,11 @@
             const strengthBar = document.querySelector('.strength-bar');
             const passwordStatus = document.querySelector('.password-status');
 
-            // Calculate password strength
             let strength = 0;
             if (password.length >= 6) strength++;
             if (/\d/.test(password)) strength++;
             if (/[!@#$%^&*(),.?":{}|<>]/.test(password)) strength++;
 
-            // Update strength bar
             strengthBar.className = 'strength-bar';
             if (strength === 1) {
                 strengthBar.classList.add('weak');
@@ -2603,7 +2565,6 @@
                 passwordStatus.textContent = 'Password strength';
             }
 
-            // Check if passwords match
             if (password !== confirmPassword) {
                 passwordStatus.textContent = 'Passwords do not match';
                 passwordStatus.style.color = 'var(--error-color)';
@@ -2612,7 +2573,6 @@
                 passwordStatus.style.color = 'var(--text-color)';
             }
 
-            // Return true only if all requirements are met
             return {
                 isValid: strength >= 2 && password === confirmPassword && username.length >= 3,
                 strength: strength,
@@ -2623,7 +2583,7 @@
         function togglePassword(button) {
             const input = button.parentElement.querySelector('input');
             const icon = button.querySelector('svg');
-            
+
             if (input.type === 'password') {
                 input.type = 'text';
                 icon.innerHTML = `
@@ -2640,13 +2600,11 @@
         }
 
         function showErrorMessage(message) {
-            // Remove any existing error messages
             const existingError = document.querySelector('.register-form .error-message');
             if (existingError) {
                 existingError.remove();
             }
 
-            // Create new error message
             const errorDiv = document.createElement('div');
             errorDiv.className = 'error-message';
             errorDiv.innerHTML = `
@@ -2654,21 +2612,17 @@
                 <div class="error-text">${message}</div>
             `;
 
-            // Add error message after the last form field
             const form = document.querySelector('.register-form');
             const lastField = form.querySelector('.form-field:last-of-type');
             lastField.after(errorDiv);
 
-            // Add error class to relevant form fields
             const usernameField = form.querySelector('input[name="reg-username"]').closest('.form-field');
             const passwordField = form.querySelector('input[name="reg-password"]').closest('.form-field');
             const confirmPasswordField = form.querySelector('input[name="reg-confirm-password"]').closest('.form-field');
 
-            // Add shake animation to form
             form.classList.add('error-shake');
             setTimeout(() => form.classList.remove('error-shake'), 500);
 
-            // Add error styling based on the type of error
             if (message.includes('Username')) {
                 usernameField.classList.add('error');
             } else if (message.includes('Password')) {
@@ -2676,7 +2630,6 @@
                 confirmPasswordField.classList.add('error');
             }
 
-            // Remove error styling after 5 seconds
             setTimeout(() => {
                 if (errorDiv.parentNode) {
                     errorDiv.remove();
@@ -2687,18 +2640,16 @@
             }, 5000);
         }
 
-        // Update the register function to use the new error display
         function register() {
             const username = document.querySelector('input[name="reg-username"]').value;
             const password = document.querySelector('input[name="reg-password"]').value;
             const confirmPassword = document.querySelector('input[name="reg-confirm-password"]').value;
 
-            // Validate registration
             const validation = validateRegistration();
-            
+
             if (!validation.isValid) {
                 let errorMessage = '';
-                
+
                 if (!validation.passwordsMatch) {
                     errorMessage = 'Passwords do not match!';
                 } else if (validation.strength < 2) {
@@ -2711,42 +2662,35 @@
                 return;
             }
 
-            // Check if username already exists
             if (loginData.some(user => user.username === username)) {
                 showErrorMessage('Username already exists!');
                 return;
             }
 
-            // Rest of the registration logic...
             const newUser = { username, password };
             let storedUsers = JSON.parse(localStorage.getItem('registeredUsers')) || [];
             storedUsers.push(newUser);
             loginData.push(newUser);
             localStorage.setItem('registeredUsers', JSON.stringify(storedUsers));
 
-            // Show success message and redirect
             showSuccessPopup('Account created successfully!');
-            
-            // Clear form
+
             document.querySelector('input[name="reg-username"]').value = '';
             document.querySelector('input[name="reg-password"]').value = '';
             document.querySelector('input[name="reg-confirm-password"]').value = '';
-            
-            // Return to login form after short delay
+
             setTimeout(() => {
                 showLoginForm();
             }, 1500);
         }
 
-        // Add these new functions for popup messages
         function showErrorPopup(message) {
             const overlay = document.createElement('div');
             overlay.className = 'popup-overlay';
-            
+
             const popup = document.createElement('div');
             popup.className = 'credentials-popup error-popup';
-            
-            // Create a more detailed error message structure
+
             popup.innerHTML = `
                 <button class="popup-close-btn" onclick="closePopup(this)">×</button>
                 <div class="credentials-popup-header">
@@ -2770,19 +2714,16 @@
             overlay.appendChild(popup);
             document.body.appendChild(overlay);
 
-            // Add visible class with slight delay for animation
             setTimeout(() => {
                 overlay.classList.add('visible');
             }, 10);
 
-            // Close popup when clicking outside
             overlay.addEventListener('click', (e) => {
                 if (e.target === overlay) {
                     closePopup(popup);
                 }
             });
 
-            // Add keyboard support for closing
             const escHandler = (e) => {
                 if (e.key === 'Escape') {
                     closePopup(popup);
@@ -2791,7 +2732,6 @@
             };
             document.addEventListener('keydown', escHandler);
 
-            // Auto-close after 5 seconds
             setTimeout(() => {
                 if (document.body.contains(overlay)) {
                     closePopup(popup);
@@ -2823,7 +2763,6 @@
                 overlay.classList.add('visible');
             });
 
-            // Auto close success popup after 1.5 seconds
             setTimeout(() => {
                 closePopup(popup);
             }, 1500);
@@ -2839,14 +2778,13 @@
             }
         }
 
-        // Session management
         class SessionManager {
             static setSession(username) {
                 try {
                     const session = {
                         username,
                         timestamp: new Date().getTime(),
-                        expiresIn: 3600000 // 1 hour
+                        expiresIn: 3600000
                     };
                     localStorage.setItem('userSession', JSON.stringify(session));
                 } catch (error) {
@@ -2861,7 +2799,7 @@
 
                     const parsedSession = JSON.parse(session);
                     const now = new Date().getTime();
-                    
+
                     if (now - parsedSession.timestamp > parsedSession.expiresIn) {
                         this.clearSession();
                         return null;
@@ -2883,7 +2821,6 @@
             }
         }
 
-        // Theme management
         class ThemeManager {
             static init() {
                 const savedTheme = localStorage.getItem('theme') || 'light';
@@ -2908,18 +2845,16 @@
             }
         }
 
-        // Add new ProfileImageGenerator class
         class ProfileImageGenerator {
             static generateColors(username) {
-                // Generate a consistent color based on username
                 let hash = 0;
                 for (let i = 0; i < username.length; i++) {
                     hash = username.charCodeAt(i) + ((hash << 5) - hash);
                 }
 
                 const h = Math.abs(hash % 360);
-                const s = 70 + (hash % 20); // 70-90%
-                const l = 45 + (hash % 10); // 45-55%
+                const s = 70 + (hash % 20);
+                const l = 45 + (hash % 10);
 
                 return {
                     primary: `hsl(${h}, ${s}%, ${l}%)`,
@@ -2939,17 +2874,16 @@
             static updateAvatar(avatarElement, username) {
                 const colors = this.generateColors(username);
                 const initials = this.getInitials(username);
-                
+
                 avatarElement.style.background = `linear-gradient(45deg, ${colors.primary}, ${colors.secondary})`;
                 avatarElement.textContent = initials;
             }
         }
 
-        // Add this before setup()
         class HintManager {
             static init() {
                 const hintBtn = document.getElementById('hint-btn');
-                
+
                 hintBtn.addEventListener('click', () => {
                     const existingOverlay = document.querySelector('.popup-overlay');
                     if (existingOverlay) {
@@ -2963,13 +2897,11 @@
                     const popup = document.createElement('div');
                     popup.className = 'credentials-popup';
 
-                    // Add header with lock icon
                     const header = document.createElement('div');
                     header.className = 'credentials-popup-header';
                     header.innerHTML = '<h3>🔐 Available Logins</h3>';
                     popup.appendChild(header);
 
-                    // Add close button
                     const closeBtn = document.createElement('button');
                     closeBtn.className = 'close-popup';
                     closeBtn.innerHTML = '×';
@@ -3000,24 +2932,20 @@
                     overlay.appendChild(popup);
                     document.body.appendChild(overlay);
 
-                    // Trigger animation
                     requestAnimationFrame(() => {
                         overlay.classList.add('visible');
                     });
 
-                    // Close popup when clicking outside
                     overlay.addEventListener('click', (e) => {
                         if (e.target === overlay) {
                             this.closePopup(overlay);
                         }
                     });
 
-                    // Prevent closing when clicking inside popup
                     popup.addEventListener('click', (e) => {
                         e.stopPropagation();
                     });
 
-                    // Add keyboard support for closing
                     document.addEventListener('keydown', (e) => {
                         if (e.key === 'Escape') {
                             const activeOverlay = document.querySelector('.popup-overlay');
@@ -3033,7 +2961,7 @@
                 overlay.classList.remove('visible');
                 setTimeout(() => {
                     overlay.remove();
-                }, 300); // Increased duration to match transition
+                }, 300);
             }
         }
 
@@ -3044,12 +2972,9 @@
             const message = document.getElementById('message');
             message.hidden = true;
 
-            // Initialize theme
             ThemeManager.init();
-            // Initialize hints
             HintManager.init();
 
-            // Check for existing session
             const session = SessionManager.getSession();
             if (session && session.username) {
                 postLogin(session.username);
@@ -3058,14 +2983,12 @@
             }
         }
 
-        // Update login function with improved error handling
         function login() {
             const usernameInput = document.querySelector('input[name="username"]');
             const passwordInput = document.querySelector('input[name="password"]');
             const form = document.querySelector('.login-form');
             const message = document.getElementById('message');
 
-            // Remove existing error states
             usernameInput.classList.remove('error');
             passwordInput.classList.remove('error');
             const existingError = form.querySelector('.error-message');
@@ -3075,49 +2998,40 @@
                 SessionManager.setSession(usernameInput.value);
                 postLogin(usernameInput.value);
             } else {
-                // Add shake animation
                 form.classList.add('error-shake');
-                
-                // Remove shake class after animation
+
                 setTimeout(() => form.classList.remove('error-shake'), 500);
 
-                // Add error styling to inputs
                 usernameInput.classList.add('error');
                 passwordInput.classList.add('error');
 
-                // Create and add error message
                 const errorMessage = document.createElement('div');
                 errorMessage.className = 'error-message';
                 errorMessage.textContent = 'Invalid username or password. Please try again.';
                 form.appendChild(errorMessage);
 
-                // Clear password field
                 passwordInput.value = '';
                 passwordInput.focus();
             }
         }
 
-        // Update postLogin function to use ProfileImageGenerator
         function postLogin(username) {
             const loginContainer = document.getElementById('login-container');
             const registerContainer = document.getElementById('register-container');
             const message = document.getElementById('message');
-            
-            // Remove existing logged-in container if it exists
+
             const existingLoggedIn = document.querySelector('.logged-in-container');
             if (existingLoggedIn) {
                 existingLoggedIn.remove();
             }
-            
-            // Create new logged-in container
+
             const loggedInContainer = document.createElement('div');
             loggedInContainer.className = 'logged-in-container';
-            
-            // Create content
+
             const avatar = document.createElement('div');
             avatar.className = 'user-avatar';
             ProfileImageGenerator.updateAvatar(avatar, username);
-            
+
             const welcomeText = document.createElement('h2');
             welcomeText.className = 'welcome-text';
             welcomeText.textContent = `Welcome back, ${username}!`;
@@ -3140,7 +3054,7 @@
                     <span>Last login: ${new Date().toLocaleString()}</span>
                 </div>
             `;
-            
+
             const logoutBtn = document.createElement('button');
             logoutBtn.className = 'logout-btn';
             logoutBtn.innerHTML = `
@@ -3151,41 +3065,34 @@
             const sessionInfo = document.createElement('div');
             sessionInfo.className = 'session-info';
             sessionInfo.textContent = 'Session expires in 1 hour';
-            
-            // Add elements to container
+
             loggedInContainer.appendChild(avatar);
             loggedInContainer.appendChild(welcomeText);
             loggedInContainer.appendChild(userInfoContainer);
             loggedInContainer.appendChild(logoutBtn);
             loggedInContainer.appendChild(sessionInfo);
-            
-            // Add container to wrapper
+
             document.querySelector('.container-wrapper').appendChild(loggedInContainer);
-            
-            // Hide other containers with animation
+
             loginContainer.classList.add('hidden');
             registerContainer.classList.remove('active');
             message.hidden = true;
-            
-            // Show logged-in container with animation
+
             requestAnimationFrame(() => {
                 loggedInContainer.classList.add('active');
             });
 
-            // Add click counter to avatar
             let avatarClickCount = 0;
             let clickTimer = null;
 
             avatar.addEventListener('click', () => {
                 avatarClickCount++;
-                
-                // Reset counter after 1 second of no clicks
+
                 clearTimeout(clickTimer);
                 clickTimer = setTimeout(() => {
                     avatarClickCount = 0;
                 }, 1000);
 
-                // Show snake game after 3 clicks
                 if (avatarClickCount === 3) {
                     avatarClickCount = 0;
                     showSnakeGame();
@@ -3203,47 +3110,39 @@
             return false;
         }
 
-        // Add logout functionality
         function logout() {
             SessionManager.clearSession();
-            
+
             const loginContainer = document.getElementById('login-container');
             const registerContainer = document.getElementById('register-container');
             const loggedInContainer = document.querySelector('.logged-in-container');
-            
-            // Clear input fields
+
             document.querySelector('input[name="username"]').value = '';
             document.querySelector('input[name="password"]').value = '';
-            
-            // Remove error states if any
+
             const errorMessages = document.querySelectorAll('.error-message');
             errorMessages.forEach(msg => msg.remove());
-            
+
             const errorInputs = document.querySelectorAll('.error');
             errorInputs.forEach(input => input.classList.remove('error'));
-            
-            // Hide logged in container with animation
+
             loggedInContainer.classList.remove('active');
-            
-            // Wait for animation to complete before removing
+
             setTimeout(() => {
                 loggedInContainer.remove();
-                // Show login container with animation
                 loginContainer.classList.remove('hidden');
                 registerContainer.classList.remove('active');
             }, 300);
         }
 
-        // Add the Brute Force Demo functionality
         class BruteForceDemoManager {
             constructor() {
                 this.isRunning = false;
                 this.attempts = 0;
                 this.startTime = null;
                 this.targetUsername = '';
-                // Add default password list
                 this.defaultPasswords = [
-                    'password123', 'admin123', '123456', 'qwerty', 
+                    'password123', 'admin123', '123456', 'qwerty',
                     'letmein', 'welcome', '111111', 'abc123',
                     'password1', 'admin', 'login', '12345678',
                     'dragon', 'monkey', 'football', 'baseball',
@@ -3253,7 +3152,7 @@
                 this.totalPasswords = 0;
                 this.successfulAttempts = 0;
                 this.processingSpeed = 0;
-                this.maxAttempts = 1000; // Add maximum attempts limit
+                this.maxAttempts = 1000;
                 this.attackSpeed = 100;
                 this.startIndex = 0;
                 this.currentList = '';
@@ -3268,13 +3167,11 @@
                 const saved = localStorage.getItem('passwordLists');
                 if (saved) {
                     const lists = JSON.parse(saved);
-                    // Ensure default list exists
                     if (!lists['Default List']) {
                         lists['Default List'] = this.defaultPasswords;
                     }
                     return lists;
                 }
-                // Initialize with default list
                 return {
                     'Default List': this.defaultPasswords,
                     'Common Passwords': ['123456', 'qwerty', 'admin', 'letmein', 'welcome'],
@@ -3307,20 +3204,20 @@
             toggleListEdit(listElement, name) {
                 const isEditing = listElement.classList.toggle('list-edit-mode');
                 const passwordEntries = listElement.querySelector('.password-entries');
-                
+
                 if (isEditing) {
                     const input = document.createElement('input');
                     input.type = 'text';
                     input.className = 'add-password-input';
                     input.placeholder = 'Type password and press Enter to add';
-                    
+
                     input.addEventListener('keypress', (e) => {
                         if (e.key === 'Enter' && e.target.value.trim()) {
                             this.addPassword(name, e.target.value.trim());
                             e.target.value = '';
                         }
                     });
-                    
+
                     listElement.appendChild(input);
                     input.focus();
                 } else {
@@ -3349,25 +3246,23 @@
 
                 const passwordEntries = existingList.querySelector('.password-entries');
                 passwordEntries.innerHTML = '';
-                
+
                 this.passwordLists[name].forEach(password => {
                     const entry = document.createElement('div');
                     entry.className = 'password-entry';
-                    
-                    // Create text node for password
+
                     const passwordText = document.createTextNode(password);
                     entry.appendChild(passwordText);
-                    
-                    // Create delete button
+
                     const deleteButton = document.createElement('button');
                     deleteButton.textContent = '×';
-                    
+
                     if (name === 'Default List') {
                         deleteButton.onclick = () => bruteForceDemo.removeFromDefaultList(password);
                     } else {
                         deleteButton.onclick = () => bruteForceDemo.removePassword(name, password);
                     }
-                    
+
                     entry.appendChild(deleteButton);
                     passwordEntries.appendChild(entry);
                 });
@@ -3378,52 +3273,44 @@
                 if (!container) return;
 
                 container.innerHTML = '';
-                
+
                 Object.entries(this.passwordLists).forEach(([name, passwords]) => {
                     const list = document.createElement('div');
                     list.className = 'password-list';
                     list.setAttribute('data-list-name', name);
-                    
-                    // Create header
+
                     const header = document.createElement('div');
                     header.className = 'list-header';
-                    
-                    // Create title
+
                     const title = document.createElement('div');
                     title.className = 'list-title';
                     title.textContent = name + ' (' + passwords.length + ')';
-                    
-                    // Create actions
+
                     const actions = document.createElement('div');
                     actions.className = 'list-actions';
-                    
-                    // Create edit button
+
                     const editBtn = document.createElement('button');
                     editBtn.className = 'list-action-btn';
                     editBtn.textContent = '✏️';
                     editBtn.onclick = () => bruteForceDemo.toggleListEdit(list, name);
-                    
-                    // Create delete button
+
                     const deleteBtn = document.createElement('button');
                     deleteBtn.className = 'list-action-btn';
                     deleteBtn.textContent = '🗑️';
                     deleteBtn.onclick = () => bruteForceDemo.deleteList(name);
-                    
-                    // Assemble the elements
+
                     actions.appendChild(editBtn);
                     actions.appendChild(deleteBtn);
                     header.appendChild(title);
                     header.appendChild(actions);
-                    
-                    // Create password entries container
+
                     const entriesContainer = document.createElement('div');
                     entriesContainer.className = 'password-entries';
-                    
+
                     list.appendChild(header);
                     list.appendChild(entriesContainer);
                     container.appendChild(list);
-                    
-                    // Render the passwords
+
                     this.renderPasswordList(name);
                 });
             }
@@ -3449,10 +3336,10 @@
                             <div class="speed-control">
                                 <label for="attack-speed">Attack Speed:</label>
                                 <div class="speed-input-group">
-                                    <input type="range" id="attack-speed" 
-                                           min="0" max="1000" value="100" 
+                                    <input type="range" id="attack-speed"
+                                           min="0" max="1000" value="100"
                                            class="speed-slider">
-                                    <input type="number" id="speed-input" 
+                                    <input type="number" id="speed-input"
                                            min="0" max="1000" value="100"
                                            class="speed-input">
                                     <span>ms</span>
@@ -3485,7 +3372,6 @@
                                 <div class="stat-label">Est. Time Left</div>
                             </div>
                         </div>
-                        <!-- Add this right after the bruteforce-controls div in the popup template -->
                         <div class="file-upload-section">
                             <div class="file-upload-header">
                                 <h4>Import Password List</h4>
@@ -3501,7 +3387,6 @@
                             </div>
                         </div>
 
-                        <!-- Add the password lists section -->
                         <div class="password-lists-section">
                             <div class="lists-header">
                                 <h4>Password Lists</h4>
@@ -3521,27 +3406,22 @@
 
                 overlay.appendChild(popup);
                 document.body.appendChild(overlay);
-                
-                // Update the select element with current users
+
                 const userSelect = popup.querySelector('#target-username');
                 userSelect.innerHTML = `
                     <option value="">Select target user</option>
                     ${loginData.map(user => `<option value="${user.username}">${user.username}</option>`).join('')}
                 `;
-                
-                // Add event listeners
+
                 const startBtn = popup.querySelector('#start-bruteforce');
                 startBtn.addEventListener('click', () => this.toggleBruteforce(startBtn));
 
                 requestAnimationFrame(() => overlay.classList.add('visible'));
 
-                // Add this after creating the popup but before showing it
                 this.renderPasswordLists();
 
-                // Setup file upload
                 this.setupFileUpload();
 
-                // Add speed control setup
                 this.setupSpeedControl();
             }
 
@@ -3573,53 +3453,47 @@
                 this.isRunning = true;
                 this.attempts = 0;
                 this.startTime = Date.now();
-                
-                // Clear previous log
+
                 document.getElementById('bruteforce-log').innerHTML = '';
                 this.addLogEntry(`Starting brute force attack on username: ${this.targetUsername}`);
 
-                // Start the attack
                 await this.startBruteforce();
             }
 
             async startBruteforce() {
                 const updateStats = () => {
                     if (!this.isRunning) return;
-                    
+
                     const timeElapsed = Math.floor((Date.now() - this.startTime) / 1000);
                     const attemptsPerSecond = Math.floor(this.attempts / timeElapsed) || 0;
-                    
-                    // Calculate remaining passwords
+
                     const remainingPasswords = this.totalPasswords - this.attempts;
-                    
-                    // Calculate estimated time
-                    const estimatedSeconds = attemptsPerSecond > 0 ? 
+
+                    const estimatedSeconds = attemptsPerSecond > 0 ?
                         Math.floor(remainingPasswords / attemptsPerSecond) : 0;
-                    
+
                     document.getElementById('attempt-count').textContent = this.attempts.toLocaleString();
                     document.getElementById('time-elapsed').textContent = this.formatTime(timeElapsed);
                     document.getElementById('attempts-per-second').textContent = attemptsPerSecond.toLocaleString();
                     document.getElementById('passwords-remaining').textContent = remainingPasswords.toLocaleString();
                     document.getElementById('estimated-time').textContent = this.formatTime(estimatedSeconds);
-                    
+
                     if (this.isRunning) {
                         requestAnimationFrame(updateStats);
                     }
                 };
-                
+
                 updateStats();
 
-                // Calculate total passwords
                 this.totalPasswords = Object.values(this.passwordLists)
                     .reduce((total, list) => total + list.length, 0);
 
-                // Try passwords from each list
                 for (const [listName, passwords] of Object.entries(this.passwordLists)) {
                     if (!this.isRunning) break;
-                    
+
                     this.currentList = listName;
                     this.addLogEntry(`Starting attack with "${listName}" (${passwords.length} passwords)`, 'info');
-                    
+
                     for (let i = 0; i < passwords.length; i++) {
                         if (!this.isRunning) break;
                         if (this.attempts >= this.maxAttempts) {
@@ -3627,7 +3501,7 @@
                             this.stopBruteforce();
                             break;
                         }
-                        
+
                         const result = await this.tryPassword(passwords[i], i + 1, passwords.length);
                         if (result) return;
                         await new Promise(resolve => setTimeout(resolve, this.attackSpeed));
@@ -3644,14 +3518,14 @@
                 this.attempts++;
                 const timestamp = new Date().toLocaleTimeString();
                 const progress = ((current / total) * 100).toFixed(1);
-                
+
                 this.addLogEntry(
                     `Trying password: ${password}`,
                     'attempt',
                     `[${this.currentList}] ${progress}% complete`
                 );
 
-                const success = loginData.some(user => 
+                const success = loginData.some(user =>
                     user.username === this.targetUsername && user.password === password
                 );
 
@@ -3686,23 +3560,23 @@
                 const log = document.getElementById('bruteforce-log');
                 const entry = document.createElement('div');
                 entry.className = `log-entry ${type}`;
-                
+
                 const timestamp = document.createElement('span');
                 timestamp.className = 'timestamp';
                 timestamp.textContent = new Date().toLocaleTimeString();
-                
+
                 const messageSpan = document.createElement('span');
                 messageSpan.className = 'message';
                 messageSpan.textContent = message;
-                
+
                 const detailsSpan = document.createElement('span');
                 detailsSpan.className = 'details';
                 detailsSpan.textContent = details;
-                
+
                 entry.appendChild(timestamp);
                 entry.appendChild(messageSpan);
                 if (details) entry.appendChild(detailsSpan);
-                
+
                 log.appendChild(entry);
                 log.scrollTop = log.scrollHeight;
             }
@@ -3710,8 +3584,7 @@
             setupFileUpload() {
                 const uploadArea = document.getElementById('file-upload-area');
                 const fileInput = document.getElementById('file-upload');
-                
-                // Fix the event listeners setup
+
                 ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
                     uploadArea.addEventListener(eventName, (e) => {
                         e.preventDefault();
@@ -3758,8 +3631,7 @@
                     try {
                         const text = await file.text();
                         const passwords = text.split(/\r?\n/).filter(line => line.trim());
-                        
-                        // Update progress bar
+
                         let processed = 0;
                         const batchSize = 1000;
                         const totalPasswords = passwords.length;
@@ -3769,12 +3641,11 @@
                         for (let i = 0; i < passwords.length; i += batchSize) {
                             const batch = passwords.slice(i, i + batchSize);
                             this.passwordLists[listName].push(...batch);
-                            
+
                             processed += batch.length;
                             const progress = (processed / totalPasswords) * 100;
                             progressFill.style.width = `${progress}%`;
-                            
-                            // Allow UI to update
+
                             await new Promise(resolve => setTimeout(resolve, 0));
                         }
 
@@ -3786,7 +3657,6 @@
                     }
                 }
 
-                // Hide progress bar with animation
                 setTimeout(() => {
                     progressFill.style.width = '0';
                     setTimeout(() => progressBar.classList.remove('active'), 300);
@@ -3800,14 +3670,11 @@
                 const timeElapsed = Math.floor((now - this.startTime) / 1000);
                 const attemptsPerSecond = Math.floor(this.attempts / timeElapsed) || 0;
 
-                // Calculate success rate
                 const successRate = ((this.successfulAttempts / this.attempts) * 100) || 0;
-                
-                // Calculate estimated time remaining
+
                 const remainingPasswords = this.totalPasswords - this.attempts;
                 const estimatedTimeRemaining = Math.floor(remainingPasswords / attemptsPerSecond);
 
-                // Update stats display
                 document.getElementById('attempt-count').textContent = this.attempts.toLocaleString();
                 document.getElementById('time-elapsed').textContent = this.formatTime(timeElapsed);
                 document.getElementById('attempts-per-second').textContent = attemptsPerSecond.toLocaleString();
@@ -3858,24 +3725,23 @@
             setupSpeedControl() {
                 const speedSlider = document.getElementById('attack-speed');
                 const speedInput = document.getElementById('speed-input');
-                
+
                 const updateSpeed = (value) => {
                     this.attackSpeed = parseInt(value);
                     speedSlider.value = value;
                     speedInput.value = value;
                 };
-                
+
                 speedSlider.addEventListener('input', (e) => {
                     updateSpeed(e.target.value);
                 });
-                
+
                 speedInput.addEventListener('change', (e) => {
                     let value = parseInt(e.target.value);
                     value = Math.max(0, Math.min(1000, value));
                     updateSpeed(value);
                 });
-                
-                // Allow direct input of 0
+
                 speedInput.addEventListener('input', (e) => {
                     if (e.target.value === '') return;
                     let value = parseInt(e.target.value);
@@ -3888,27 +3754,23 @@
             }
         }
 
-        // Initialize the brute force demo
         const bruteForceDemo = new BruteForceDemoManager();
         bruteForceDemo.init();
 
-        // Snake Game Implementation
         class SnakeGame {
             constructor() {
                 this.gridSize = 20;
                 this.highScore = parseInt(localStorage.getItem('snakeHighScore')) || 0;
                 this.updateHighScoreDisplays();
-                // Add these new properties
                 this.particles = [];
                 this.ripples = [];
                 this.setupKeyboardControls();
             }
 
             setupKeyboardControls() {
-                // Keyboard controls
                 document.addEventListener('keydown', (e) => {
                     if (!this.gameLoop) return;
-                    
+
                     switch(e.key) {
                         case 'ArrowUp':
                             if (this.direction !== 'down') this.nextDirection = 'up';
@@ -3976,15 +3838,14 @@
             initializeGame() {
                 this.canvas = document.getElementById('snakeCanvas');
                 this.ctx = this.canvas.getContext('2d');
-                
-                // Set canvas dimensions based on container size
+
                 const container = this.canvas.parentElement;
                 const containerWidth = container.clientWidth;
-                this.canvas.width = Math.min(400, containerWidth - 20); // 20px padding
-                this.canvas.height = (this.canvas.width * 9) / 10; // Maintain 10:9 aspect ratio
-                
+                this.canvas.width = Math.min(400, containerWidth - 20);
+                this.canvas.height = (this.canvas.width * 9) / 10;
+
                 this.setupTouchControls();
-                
+
                 this.snake = [{x: 5, y: 5}];
                 this.food = this.generateFood();
                 this.direction = 'right';
@@ -3992,8 +3853,7 @@
                 this.score = 0;
                 this.gameSpeed = 150;
                 this.lastUpdate = 0;
-                
-                // Add eating animation properties
+
                 this.eatingAnimation = {
                     active: false,
                     frame: 0,
@@ -4031,9 +3891,9 @@
 
             startGame() {
                 this.showGameScreen();
-                this.initializeGame(); // Initialize canvas and game state
+                this.initializeGame();
                 this.updateScore();
-                
+
                 if (this.gameLoop) {
                     cancelAnimationFrame(this.gameLoop);
                 }
@@ -4089,11 +3949,10 @@
                     // Start eating animation
                     this.eatingAnimation.active = true;
                     this.eatingAnimation.frame = 0;
-                    
-                    // Add these lines
+
                     this.createParticles(this.food.x, this.food.y);
                     this.createRipple(this.food.x, this.food.y);
-                    
+
                     this.score += 10;
                     this.updateScore();
                     this.food = this.generateFood();
@@ -4102,7 +3961,6 @@
                     this.snake.pop();
                 }
 
-                // Update eating animation
                 if (this.eatingAnimation.active) {
                     this.eatingAnimation.frame++;
                     if (this.eatingAnimation.frame >= this.eatingAnimation.maxFrames) {
@@ -4112,44 +3970,36 @@
             }
 
             draw() {
-                // Save initial context state
                 this.ctx.save();
-                
-                // Clear canvas with gradient background
+
                 const bgGradient = this.ctx.createLinearGradient(0, 0, this.canvas.width, this.canvas.height);
                 const bgColor = getComputedStyle(document.documentElement).getPropertyValue('--bg-color');
                 const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--primary-color');
-                
-                // Create a slightly tinted version of the background color
+
                 const tintedColor = this.adjustColor(bgColor, primaryColor, 0.1);
-                
+
                 bgGradient.addColorStop(0, bgColor);
                 bgGradient.addColorStop(1, tintedColor);
                 this.ctx.fillStyle = bgGradient;
                 this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
-                // Restore context state before drawing grid
                 this.ctx.restore();
                 this.ctx.save();
 
-                // Draw grid
                 this.drawGrid();
-                
-                // Draw other elements
+
                 this.drawSnake();
                 this.drawFood();
                 this.drawEffects();
-                
-                // Final restore
+
                 this.ctx.restore();
             }
 
-            // Add these new methods to split up the drawing logic
             drawGrid() {
                 this.ctx.strokeStyle = `rgba(${getComputedStyle(document.documentElement)
                     .getPropertyValue('--border-color-rgb')}, 0.1)`;
                 this.ctx.lineWidth = 0.5;
-                
+
                 for (let i = 0; i <= this.canvas.width; i += this.gridSize) {
                     this.ctx.beginPath();
                     this.ctx.moveTo(i, 0);
@@ -4173,7 +4023,7 @@
 
                 this.snake.forEach((segment, index) => {
                     const isHead = index === 0;
-                    
+
                     if (isHead) {
                         this.ctx.shadowColor = getComputedStyle(document.documentElement)
                             .getPropertyValue('--primary-color');
@@ -4182,7 +4032,7 @@
                         if (this.eatingAnimation.active) {
                             const progress = this.eatingAnimation.frame / this.eatingAnimation.maxFrames;
                             const scale = 1 + Math.sin(progress * Math.PI) * 0.2;
-                            
+
                             this.ctx.save();
                             this.ctx.translate(
                                 segment.x * this.gridSize + this.gridSize/2,
@@ -4197,7 +4047,7 @@
                     }
 
                     this.ctx.fillStyle = snakeGradient;
-                    
+
                     const x = segment.x * this.gridSize;
                     const y = segment.y * this.gridSize;
                     const size = this.gridSize - 2;
@@ -4232,7 +4082,7 @@
                 this.ctx.shadowColor = getComputedStyle(document.documentElement)
                     .getPropertyValue('--success-color');
                 this.ctx.shadowBlur = 15;
-                
+
                 this.ctx.beginPath();
                 this.ctx.arc(
                     this.food.x * this.gridSize + this.gridSize/2,
@@ -4242,8 +4092,7 @@
                     Math.PI * 2
                 );
                 this.ctx.fill();
-                
-                // Add inner glow to food
+
                 this.ctx.beginPath();
                 this.ctx.arc(
                     this.food.x * this.gridSize + this.gridSize/2,
@@ -4254,15 +4103,13 @@
                 );
                 this.ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
                 this.ctx.fill();
-                
+
                 this.ctx.shadowBlur = 0;
             }
 
             drawEffects() {
-                // Save the current context state
                 this.ctx.save();
-                
-                // Draw ripples
+
                 this.ripples.forEach(ripple => {
                     this.ctx.beginPath();
                     this.ctx.strokeStyle = `rgba(${getComputedStyle(document.documentElement)
@@ -4271,19 +4118,16 @@
                     this.ctx.arc(ripple.x, ripple.y, ripple.radius, 0, Math.PI * 2);
                     this.ctx.stroke();
                 });
-                
-                // Draw particles
+
                 this.particles.forEach(particle => {
                     this.ctx.beginPath();
                     this.ctx.fillStyle = `rgba(${this.getRGBValues(particle.color)}, ${particle.life})`;
                     this.ctx.arc(particle.x, particle.y, 3 * particle.life, 0, Math.PI * 2);
                     this.ctx.fill();
                 });
-                
-                // Restore the context state
+
                 this.ctx.restore();
-                
-                // Update effects
+
                 this.updateEffects();
             }
 
@@ -4303,7 +4147,6 @@
             }
 
             adjustColor(baseColor, mixColor, amount) {
-                // Convert hex to RGB
                 const hexToRgb = (hex) => {
                     const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
                     hex = hex.replace(shorthandRegex, (m, r, g, b) => r + r + g + g + b + b);
@@ -4315,17 +4158,15 @@
                     } : null;
                 };
 
-                // Convert RGB to hex
                 const rgbToHex = (r, g, b) => '#' + [r, g, b]
                     .map(x => Math.round(x).toString(16).padStart(2, '0'))
                     .join('');
 
                 const base = hexToRgb(baseColor);
                 const mix = hexToRgb(mixColor);
-                
+
                 if (!base || !mix) return baseColor;
 
-                // Mix the colors
                 const r = base.r * (1 - amount) + mix.r * amount;
                 const g = base.g * (1 - amount) + mix.g * amount;
                 const b = base.b * (1 - amount) + mix.b * amount;
@@ -4333,7 +4174,6 @@
                 return rgbToHex(r, g, b);
             }
 
-            // Add these new methods to the SnakeGame class
             createParticles(x, y) {
                 const numParticles = 12;
                 const colors = [
@@ -4341,7 +4181,7 @@
                     getComputedStyle(document.documentElement).getPropertyValue('--primary-color'),
                     '#ffffff'
                 ];
-                
+
                 for (let i = 0; i < numParticles; i++) {
                     const angle = (i / numParticles) * Math.PI * 2;
                     const speed = 2 + Math.random() * 2;
@@ -4366,33 +4206,29 @@
                 });
             }
 
-            // Add this new method to update particles and ripples
             updateEffects() {
-                // Update particles
                 for (let i = this.particles.length - 1; i >= 0; i--) {
                     const particle = this.particles[i];
                     particle.x += particle.vx;
                     particle.y += particle.vy;
                     particle.life -= 0.05;
-                    
+
                     if (particle.life <= 0) {
                         this.particles.splice(i, 1);
                     }
                 }
-                
-                // Update ripples
+
                 for (let i = this.ripples.length - 1; i >= 0; i--) {
                     const ripple = this.ripples[i];
                     ripple.radius += 4;
                     ripple.life -= 0.05;
-                    
+
                     if (ripple.life <= 0) {
                         this.ripples.splice(i, 1);
                     }
                 }
             }
 
-            // Add this helper method to the SnakeGame class
             getRGBValues(color) {
                 if (color.startsWith('#')) {
                     const r = parseInt(color.slice(1, 3), 16);
@@ -4409,17 +4245,16 @@
         function showSnakeGame() {
             const overlay = document.querySelector('.snake-game-overlay');
             overlay.style.display = 'flex';
-            
+
             if (!snakeGame) {
                 snakeGame = new SnakeGame();
             }
-            
-            // Reset game state
+
             if (snakeGame.gameLoop) {
                 cancelAnimationFrame(snakeGame.gameLoop);
                 snakeGame.gameLoop = null;
             }
-            
+
             snakeGame.showStartScreen();
         }
 
