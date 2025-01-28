@@ -32,10 +32,9 @@ This is a simple educational Website made to showcase how dangerous Brute Force 
 
 ## :sparkles: Features ##
 
-:heavy_check_mark: User Input\
-:heavy_check_mark: Program Loop\
-:heavy_check_mark: Vowel Counting\
-:heavy_multiplication_x: Colorful Printing
+:heavy_check_mark: Login & Registration\
+:heavy_check_mark: User & Password persistance\
+:heavy_check_mark: Brute Force Attack Simulation
 
 
 ## :dash: Getting Started ##
